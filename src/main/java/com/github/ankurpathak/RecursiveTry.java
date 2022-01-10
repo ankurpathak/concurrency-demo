@@ -29,6 +29,16 @@ public class RecursiveTry {
 
         sequence = new int[]{4,3,2};
         subSequencesDivisibleByK(sequence, 0, 3, new ArrayDeque<>(sequence.length), 0);
+
+
+        sequence = new int[]{4,3,2};
+        System.out.printf("%d%n", countSubSequencesDivisibleByK(sequence, 0, 3, 0) - 1);
+
+        sequence = new int[]{3, 34, 4, 12, 5, 2};
+        System.out.printf("%b%n", subsetSum(sequence, 0, 0, 9));
+
+        sequence = new int[]{3, 34, 4, 12, 5, 2};
+        System.out.printf("%b%n", subsetSum(sequence, 0, 0, 30));
     }
 
 
@@ -114,5 +124,26 @@ public class RecursiveTry {
         subSequencesDivisibleByK(a, i + 1, k, ds, sum + a[i]);
         ds.pollLast();
         subSequencesDivisibleByK(a, i +1, k, ds, sum);
+    }
+
+
+    static int countSubSequencesDivisibleByK(int[] a, int i, int k, int sum){
+        if(i >= a.length){
+            if(sum % k == 0 ){
+                return 1;
+            }
+            return 0;
+        }
+        return countSubSequencesDivisibleByK(a, i + 1, k ,sum + a[i]) + countSubSequencesDivisibleByK(a, i + 1, k, sum);
+    }
+
+    //https://www.geeksforgeeks.org/subset-sum-problem-dp-25/
+    static boolean subsetSum(int[] a, int i, int sum, int requiredSum){
+        if(i >= a.length){
+            return sum == requiredSum;
+        }
+        boolean result = subsetSum(a, i + 1, sum + a[i], requiredSum);
+
+        return result ? result : subsetSum(a, i + 1, sum, requiredSum);
     }
 }
