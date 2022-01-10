@@ -1,6 +1,8 @@
 package com.github.ankurpathak;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 public class RecursiveTry {
     public static void main(String[] args) {
@@ -20,6 +22,13 @@ public class RecursiveTry {
         System.out.printf("%b%n", palindromeString("rukna", 0));
         System.out.printf("%b%n", palindromeString("maam", 0));
         System.out.printf("%b%n", palindromeString("mam", 0));
+
+        int[] sequence = new int[]{1,3,2};
+        subSequence(sequence, 0, new ArrayDeque<>(sequence.length));
+
+
+        sequence = new int[]{4,3,2};
+        subSequencesDivisibleByK(sequence, 0, 3, new ArrayDeque<>(sequence.length), 0);
     }
 
 
@@ -80,5 +89,30 @@ public class RecursiveTry {
         if(str.charAt(i) != str.charAt(str.length() -i -1))
             return  false;
         return palindromeString(str, i + 1);
+    }
+
+    static void subSequence(int[] a, int i, Deque<Integer> ds){
+        if(i >= a.length){
+            System.out.printf("%s%n", ds);
+            return;
+        }
+        ds.offerLast(a[i]);
+        subSequence(a, i + 1, ds);
+        ds.pollLast();
+        subSequence(a, i + 1, ds);
+    }
+
+
+    static void subSequencesDivisibleByK(int[] a, int i, int k, Deque<Integer> ds, int sum){
+        if(i >= a.length){
+            if(sum % k == 0 && !ds.isEmpty()){
+                System.out.printf("%s%n", ds);
+            }
+            return;
+        }
+        ds.offerLast(a[i]);
+        subSequencesDivisibleByK(a, i + 1, k, ds, sum + a[i]);
+        ds.pollLast();
+        subSequencesDivisibleByK(a, i +1, k, ds, sum);
     }
 }
