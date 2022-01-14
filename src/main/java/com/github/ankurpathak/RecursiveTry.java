@@ -1,8 +1,6 @@
 package com.github.ankurpathak;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.*;
 
 public class RecursiveTry {
     public static void main(String[] args) {
@@ -39,6 +37,9 @@ public class RecursiveTry {
 
         sequence = new int[]{3, 34, 4, 12, 5, 2};
         System.out.printf("%b%n", subsetSum(sequence, 0, 0, 30));
+
+
+       // combinationSum();
     }
 
 
@@ -145,5 +146,25 @@ public class RecursiveTry {
         boolean result = subsetSum(a, i + 1, sum + a[i], requiredSum);
 
         return result ? result : subsetSum(a, i + 1, sum, requiredSum);
+    }
+
+
+    static void combinationSum(int a[], int i, List<Integer> ds, int sum, int target, List<List<Integer>> collector){
+        if(i >= a.length){
+            if(sum == target && !ds.isEmpty()){
+                collector.add(new ArrayList<>(ds));
+            }
+            return;
+        }
+        ds.add(a[i]);
+        combinationSum(a, i +1, ds, sum + a[i], target, collector);
+        ds.remove(ds.size() -1);
+        combinationSum(a, i +1, ds, sum, target, collector);
+    }
+
+    static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> collector = new ArrayList<>();
+        combinationSum(candidates, 0, new ArrayList<>(), 0, target, collector);
+        return collector;
     }
 }
