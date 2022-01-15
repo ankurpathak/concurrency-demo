@@ -209,6 +209,18 @@ public class LinkedListDemoX {
         return start;
     }
 
+
+    public static <T> Node<T> reverseRecursive(Node<T> start, Node<T> it){
+        if(it == null)
+            return start;
+
+        Node<T> returnNode = reverseRecursive(it, it.next);
+
+        it.next =  start;
+
+        return returnNode;
+    }
+
 }
 
 

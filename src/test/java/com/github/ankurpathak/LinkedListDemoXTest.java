@@ -215,5 +215,36 @@ public class LinkedListDemoXTest {
         assertThat(it.next).isNull();
     }
 
+    @Test
+    public void testReverseOnlyElement(){
+        onlyElementRoot = reverse(onlyElementRoot);
+        assertThat(onlyElementRoot).isNotNull();
+        assertThat(count(onlyElementRoot)).isEqualTo(1);
+        assertThat(onlyElementRoot.data).isEqualTo(1);
+        assertThat(onlyElementRoot.next).isNull();
+    }
+
+
+    @Test
+    public void testReverseRecursiveOnlyElement(){
+        onlyElementRoot = reverseRecursive(null, onlyElementRoot);
+        assertThat(onlyElementRoot).isNotNull();
+        assertThat(count(onlyElementRoot)).isEqualTo(1);
+        assertThat(onlyElementRoot.data).isEqualTo(1);
+        assertThat(onlyElementRoot.next).isNull();
+    }
+
+
+    @Test
+    public void testReverseRecursive(){
+        longListRoot = reverseRecursive(null, longListRoot);
+        assertThat(longListRoot).isNotNull();
+        assertThat(count(longListRoot)).isEqualTo(5);
+        assertThat(longListRoot.data).isEqualTo(5);
+        Node<Integer> it = search(longListRoot, 1);
+        assertThat(it).isNotNull();
+        assertThat(it.data).isEqualTo(1);
+        assertThat(it.next).isNull();
+    }
 
 }
