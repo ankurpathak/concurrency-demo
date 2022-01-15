@@ -1,6 +1,7 @@
 package com.github.ankurpathak;
 
-import java.util.Objects;
+import static com.github.ankurpathak.LinkedListUtil.traverse;
+
 
 public class LinkedListDemoX {
 
@@ -65,28 +66,9 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> void traverse(Node<T> root, String message){
-        Node<T> it = root;
 
-        System.out.printf("%s: ", message);
-        while(it != null){
-            System.out.printf("%s ", it.data);
-            it = it.next;
-        }
-        System.out.println();
-    }
 
-    public static <T> int count(Node<T> root){
-        Node<T> it = root;
 
-        int count = 0;
-        while(it != null){
-            System.out.printf("%s ", it.data);
-            it = it.next;
-            count++;
-        }
-        return count;
-    }
 
 
     public static <T> Node<T> create(T[] a){
@@ -215,17 +197,17 @@ public class LinkedListDemoX {
         return start.next;
     }
 
-    public static <T> Node<T> search(Node<T> head, T data){
-        Node<T> it = head;
+    public static <T> Node<T> reverse(Node<T> head){
+        Node<T> start = null;
+        Node<T> it =  head;
         while(it != null){
-            if(Objects.equals(data, it.data)){
-                return it;
-            }
-            it = it.next;
+            Node<T> next =  it.next;
+            it.next = start;
+            start =  it;
+            it = next;
         }
-        return null;
+        return start;
     }
-
 
 }
 

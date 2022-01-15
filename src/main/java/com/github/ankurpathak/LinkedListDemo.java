@@ -1,5 +1,9 @@
 package com.github.ankurpathak;
 
+
+import static com.github.ankurpathak.LinkedListUtil.traverse;
+
+
 public class LinkedListDemo {
 
     public static void main(String[] args) {
@@ -43,16 +47,7 @@ public class LinkedListDemo {
     }
 
 
-    public static <T> void traverse(Node<T> root, String message){
-        Node<T> it = root;
 
-        System.out.printf("%s: ", message);
-        while(it != null){
-            System.out.printf("%s ", it.data);
-            it = it.next;
-        }
-        System.out.println();
-    }
 
 
     public static <T> Node<T> create(T[] a){
@@ -191,6 +186,10 @@ public class LinkedListDemo {
         System.gc();
         return head;
     }
+
+
+
+
 
 
 

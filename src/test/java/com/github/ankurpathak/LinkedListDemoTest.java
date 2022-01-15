@@ -3,22 +3,20 @@ package com.github.ankurpathak;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.github.ankurpathak.LinkedListDemoX.*;
+import static com.github.ankurpathak.LinkedListDemo.*;
 import static com.github.ankurpathak.LinkedListUtil.count;
 import static com.github.ankurpathak.LinkedListUtil.search;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class LinkedListDemoXTest {
+public class LinkedListDemoTest {
 
     private Integer[] notEmpty = {1, 2, 3};
     private Integer[] onlyElement = {1};
     private Integer[] empty = {};
-    private Integer[] longList = {1, 2, 3, 4, 5};
     private Node<Integer> notEmptyRoot;
     private Node<Integer> onlyElementRoot;
     private Node<Integer> emptyRoot;
-    private Node<Integer> longListRoot;
 
 
     @BeforeEach
@@ -26,7 +24,6 @@ public class LinkedListDemoXTest {
         notEmptyRoot = create(notEmpty);
         onlyElementRoot =  create(onlyElement);
         emptyRoot = create(empty);
-        longListRoot =  create(longList);
     }
 
 
@@ -38,8 +35,6 @@ public class LinkedListDemoXTest {
         assertThat(onlyElementRoot).isNotNull();
         assertThat(count(onlyElementRoot)).isEqualTo(1);
         assertThat(emptyRoot).isNull();
-        assertThat(longListRoot).isNotNull();
-        assertThat(count(longListRoot)).isEqualTo(5);
     }
 
 
@@ -201,18 +196,6 @@ public class LinkedListDemoXTest {
         notEmptyRoot = remove(notEmptyRoot, 3);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(3);
-    }
-
-    @Test
-    public void testReverse(){
-        longListRoot = reverse(longListRoot);
-        assertThat(longListRoot).isNotNull();
-        assertThat(count(longListRoot)).isEqualTo(5);
-        assertThat(longListRoot.data).isEqualTo(5);
-        Node<Integer> it = search(longListRoot, 1);
-        assertThat(it).isNotNull();
-        assertThat(it.data).isEqualTo(1);
-        assertThat(it.next).isNull();
     }
 
 
