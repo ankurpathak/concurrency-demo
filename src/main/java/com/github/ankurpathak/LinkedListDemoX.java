@@ -1,6 +1,8 @@
 package com.github.ankurpathak;
 
-public class LinkedListDemo {
+import java.util.Objects;
+
+public class LinkedListDemoX {
 
     public static void main(String[] args) {
         Integer[] a = {1, 2, 3, 4, 5};
@@ -39,6 +41,26 @@ public class LinkedListDemo {
         root = removeFirst(root);
         traverse(root, "Link List After Removing First");
 
+        Integer[] b = {};
+        root = create(b);
+        root = addLast(root, 5);
+        traverse(root, "Testing addLastX Empty array");
+
+        b = new Integer[]{1, 2, 3};
+        root = create(b);
+        root = addLast(root, 4);
+        traverse(root, "Testing addLastX Non Empty Array array");
+
+
+        b = new Integer[]{1};
+        root = create(b);
+        root = removeLast(root);
+        traverse(root, "Testing removeLastX Single element array");
+
+        b = new Integer[]{1, 2, 3};
+        root = create(b);
+        root = removeLast(root);
+        traverse(root, "Testing addLastX Non Single Element Array array");
 
     }
 
@@ -54,22 +76,31 @@ public class LinkedListDemo {
         System.out.println();
     }
 
+    public static <T> int count(Node<T> root){
+        Node<T> it = root;
+
+        int count = 0;
+        while(it != null){
+            System.out.printf("%s ", it.data);
+            it = it.next;
+            count++;
+        }
+        return count;
+    }
+
 
     public static <T> Node<T> create(T[] a){
         if(a == null || a.length == 0)
             return null;
 
-        Node<T> head = null , it = null;
+        Node<T> start = new Node<>();
+
+        Node<T> it = start;
         for (T t : a) {
-            if (it == null) {
-                it = new Node<>(t);
-                head = it;
-            } else {
-                it.next = new Node<>(t);
-                it = it.next;
-            }
+            it.next = new Node<>(t);
+            it = it.next;
         }
-        return head;
+        return start.next;
     }
 
 
@@ -95,15 +126,12 @@ public class LinkedListDemo {
         if (index < 0)
             return head;
 
-        if(index == 0){
-            Node<T> toAdd =  new Node<>(data);
-            toAdd.next = head;
-            return toAdd;
-        }
+        Node<T> start = new Node<>();
+        start.next = head;
 
-        Node<T> it = head;
+        Node<T> it = start;
         int counter = 0;
-        while (it != null && counter < index - 1) {
+        while (it != null && counter < index) {
             counter++;
             it = it.next;
         }
@@ -115,7 +143,7 @@ public class LinkedListDemo {
         toAdd.next = it.next;
         it.next = toAdd;
 
-        return head;
+        return start.next;
     }
 
 
@@ -126,15 +154,12 @@ public class LinkedListDemo {
         if(head == null)
             return null;
 
-        if(index == 0){
-            head = head.next;
-            System.gc();
-            return head;
-        }
+        Node<T> start = new Node<>();
+        start.next = head;
 
-        Node<T> it =  head;
+        Node<T> it =  start;
         int counter = 0;
-        while(it != null && counter < index - 1 ){
+        while(it != null && counter < index){
             counter++;
             it = it.next;
         }
@@ -144,56 +169,62 @@ public class LinkedListDemo {
         }
 
         it.next = it.next.next;
-        it = null;
         System.gc();
-        return head;
+        return start.next;
     }
 
 
+
+
+
+
+
     public static <T> Node<T> addLast(Node<T> head, T data) {
-        //list is empty and insert as first node
+
         Node<T> toAdd = new Node<>(data);
-        if (head == null) {
-            return toAdd;
-        }
+        Node<T> start =  new Node<>();
+        start.next = head;
 
-        Node<T> it = head;
-
-        //move to last node
+        Node<T> it = start;
         while (it.next != null) {
             it = it.next;
         }
 
         it.next = toAdd;
-        return head;
+        return start.next;
     }
 
+
     public static <T> Node<T> removeLast(Node<T> head) {
-        //list is empty and nothing to delete
+
         if (head == null)
             return null;
 
-        //delete only node and free memory
-        if (head.next == null) {
-            head = null;
-            System.gc();
-            return null;
-        }
+        Node<T> start = new Node<>();
+        start.next = head;
 
-        //move to second last node
-        Node<T> it = head;
+
+        Node<T> it = start;
         while (it.next.next != null) {
             it = it.next;
         }
 
-        //delete last node and free memory
+
         it.next = null;
         System.gc();
-        return head;
+        return start.next;
     }
 
-
-
+    public static <T> Node<T> search(Node<T> head, T data){
+        Node<T> it = head;
+        while(it != null){
+            if(Objects.equals(data, it.data)){
+                return it;
+            }
+            it = it.next;
+        }
+        return null;
+    }
 
 
 }
