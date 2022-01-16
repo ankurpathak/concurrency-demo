@@ -14,9 +14,9 @@ public class LinkedListDemoTest {
     private Integer[] notEmpty = {1, 2, 3};
     private Integer[] onlyElement = {1};
     private Integer[] empty = {};
-    private Node<Integer> notEmptyRoot;
-    private Node<Integer> onlyElementRoot;
-    private Node<Integer> emptyRoot;
+    private ListNode<Integer> notEmptyRoot;
+    private ListNode<Integer> onlyElementRoot;
+    private ListNode<Integer> emptyRoot;
 
 
     @BeforeEach
@@ -71,7 +71,7 @@ public class LinkedListDemoTest {
         notEmptyRoot = addLast(notEmptyRoot, 4);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(4);
-        Node<Integer> it = search(notEmptyRoot, 4);
+        ListNode<Integer> it = search(notEmptyRoot, 4);
         assertThat(it ).isNotNull();
         assertThat(it.data).isEqualTo(4);
     }
@@ -82,7 +82,7 @@ public class LinkedListDemoTest {
         notEmptyRoot = add(notEmptyRoot, 10, 2);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(4);
-        Node<Integer> it = search(notEmptyRoot, 10);
+        ListNode<Integer> it = search(notEmptyRoot, 10);
         assertThat(it).isNotNull();
         assertThat(it.data).isEqualTo(10);
     }
@@ -114,7 +114,7 @@ public class LinkedListDemoTest {
         notEmptyRoot = add(notEmptyRoot, 50, count);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(4);
-        Node<Integer> it = search(notEmptyRoot, 50);
+        ListNode<Integer> it = search(notEmptyRoot, 50);
         assertThat(it).isNotNull();
         assertThat(it.next).isNull();
     }
@@ -155,7 +155,7 @@ public class LinkedListDemoTest {
         notEmptyRoot = removeLast(notEmptyRoot);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(2);
-        Node<Integer> it = search(notEmptyRoot, 2);
+        ListNode<Integer> it = search(notEmptyRoot, 2);
         assertThat(it).isNotNull();
         assertThat(it.next).isNull();
         assertThat(it.data).isEqualTo(2);
@@ -178,7 +178,7 @@ public class LinkedListDemoTest {
         notEmptyRoot = remove(notEmptyRoot, 1);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(2);
-        Node<Integer> it = search(notEmptyRoot, 2);
+        ListNode<Integer> it = search(notEmptyRoot, 2);
         assertThat(it).isNull();
     }
 
