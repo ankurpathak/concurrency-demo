@@ -18,4 +18,12 @@ public class Node<T> {
     public void setNext(Node<T> next) {
         this.next = next;
     }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

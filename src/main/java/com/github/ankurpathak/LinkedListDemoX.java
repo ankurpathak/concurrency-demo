@@ -1,5 +1,6 @@
 package com.github.ankurpathak;
 
+import static com.github.ankurpathak.LinkedListUtil.count;
 import static com.github.ankurpathak.LinkedListUtil.traverse;
 
 
@@ -219,6 +220,85 @@ public class LinkedListDemoX {
         it.next =  start;
 
         return returnNode;
+    }
+
+
+    public static <T> Node<T> removeNthNodeFromLast2N(Node<T> head, int n){
+        int count = count(head);
+        int stopPos = count - n;
+
+        Node<T> start = new Node<>();
+        start.next = head;
+
+        Node<T> it = start;
+        for(int i = 0 ; it != null && i < stopPos; i++){
+            it =  it.next;
+        }
+
+        if(it == null || it.next == null)
+            return head;
+
+        it.next = it.next.next;
+
+        return start.next;
+    }
+
+    public static <T> Node<T> removeNthNodeFromLastN(Node<T> head, int n){
+        Node<T> start = new Node<>();
+        start.next = head;
+        Node<T> fast = start;
+        Node<T> slow = start;
+
+        for(int i = 0; fast != null && i < n; i++){
+            fast = fast.next;
+        }
+
+        if(fast == null)
+            return head;
+
+        while(fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        if(slow == null || slow.next == null)
+            return head;
+
+        slow.next = slow.next.next;
+        return start.next;
+    }
+
+
+    public static <T> Node<T> findMiddleNodeN(Node<T> head){
+        Node<T> start = new Node<>();
+        start.next =  head;
+        Node<T> fast = start;
+        Node<T> slow = start;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(fast == null)
+            return slow;
+        else
+            return slow.next;
+    }
+
+
+    public static <T> Node<T> findMiddleNode2N(Node<T> head){
+        int n = count(head);
+        int stopPos = (n >> 1) + 1;
+
+        Node<T> start = new Node<>();
+        start.next =  head;
+
+        Node<T> it = start;
+        for(int i = 0; it !=null && i < stopPos; i++){
+            it = it.next;
+        }
+
+        return it;
     }
 
 }
