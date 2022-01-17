@@ -127,6 +127,22 @@ public class TreeDemoTests {
     }
 
 
+    @Test
+    public void testIdenticalTree(){
+        assertThat(root).isNotNull();
+        TreeNode<Integer> root2 = create(rootSequence);
+        assertThat(root2).isNotNull();
+        assertThat(identicalTree(root, root2)).isTrue();
+        Integer[] rootNotIdenticalSequence = new Integer[]{ 1, 2, 3, 4, 5, 7, 8, 11,null, 6,null, null,null,9,10};
+        var root3 = create(rootNotIdenticalSequence);
+        assertThat(root3).isNotNull();
+        assertThat(identicalTree(root, root3)).isFalse();
+    }
+
+
+
+
+
 
 
 }
