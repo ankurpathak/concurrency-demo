@@ -101,5 +101,32 @@ public class TreeDemoTests {
         assertThat(height(root)).isEqualTo(4);
     }
 
+    @Test
+    public void testBalancedTree(){
+        assertThat(root).isNotNull();
+        assertThat(balancedTree(root)).isEqualTo(4);
+        Integer[] notBalancedList = new Integer[]{1,2,4,3,null,5,6,9,null,null,null,null,null,null,7,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null, 8};
+        TreeNode<Integer> notBalancedRoot = create(notBalancedList);
+        assertThat(notBalancedRoot).isNotNull();
+        assertThat(balancedTree(notBalancedRoot)).isEqualTo(-1);
+    }
+
+
+    @Test
+    public void testDiameter(){
+        assertThat(root).isNotNull();
+        int[] diameter = new int[]{0};
+        assertThat(diameter(root, diameter)).isEqualTo(4);
+        assertThat(diameter).isNotNull().isNotEmpty().containsExactly(6);
+        diameter = new int[]{0};
+        Integer[] diameterList = new Integer[]{1,2,3, null, null, 4, 6, null, null, null, null, 5, null, null,7, null, null, null, null, null, null, null, null, 9,  null, null, null, null, null, null, 8};
+        TreeNode<Integer> diameterListRoot = create(diameterList);
+        assertThat(diameterListRoot).isNotNull();
+        assertThat(diameter(diameterListRoot, diameter)).isEqualTo(5);
+        assertThat(diameter).isNotNull().isNotEmpty().containsExactly(6);
+    }
+
+
+
 
 }
