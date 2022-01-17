@@ -95,5 +95,11 @@ public class TreeDemoTests {
         );
     }
 
+    @Test
+    public void testHeight(){
+        assertThat(root).isNotNull();
+        assertThat(height(root)).isEqualTo(4);
+    }
+
 
 }

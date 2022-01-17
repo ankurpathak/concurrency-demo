@@ -231,6 +231,17 @@ public class TreeDemo {
         ds.put("postorder", postorder);
         return ds;
     }
+
+
+   public static <T> int height(TreeNode<T> root){
+        if(root == null)
+            return 0;
+
+        int lh = height(root.left);
+        int rh = height(root.right);
+
+        return 1 + Math.max(lh, rh);
+   }
  }
 
 
