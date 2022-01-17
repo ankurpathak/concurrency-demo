@@ -193,6 +193,44 @@ public class TreeDemo {
         }
         return ds;
     }
+
+    public static <T> Map<String, List<T>> allDfs(TreeNode<T> root){
+        if(root == null)
+            return Collections.emptyMap();
+
+        List<T> preorder = new ArrayList<>();
+        List<T> inorder =  new ArrayList<>();
+        List<T> postorder =  new ArrayList<>();
+
+        Deque<Pair<TreeNode<T>>> stack = new LinkedList<>();
+        stack.offerFirst(new Pair<>(root, 1));
+        while (!stack.isEmpty()){
+            var pair = stack.pollFirst();
+            if(pair.index == 1){
+                preorder.add(pair.t.data);
+                pair.index++;
+                stack.offerFirst(pair);
+                if(pair.t.left != null){
+                    stack.offerFirst(new Pair<>(pair.t.left, 1));
+                }
+            }else if(pair.index == 2){
+                inorder.add(pair.t.data);
+                pair.index++;
+                stack.offerFirst(pair);
+                if(pair.t.right != null){
+                    stack.offerFirst(new Pair<>(pair.t.right, 1));
+                }
+            }else if(pair.index == 3){
+                postorder.add(pair.t.data);
+            }
+        }
+
+        Map<String, List<T>> ds = new LinkedHashMap<>();
+        ds.put("preorder", preorder);
+        ds.put("inorder", inorder);
+        ds.put("postorder", postorder);
+        return ds;
+    }
  }
 
 

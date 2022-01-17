@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.ankurpathak.TreeDemo.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -82,6 +83,16 @@ public class TreeDemoTests {
     public void testPostorder1StackIterative(){
         assertThat(root).isNotNull();
         assertThat(postorderIterative1Stack(root)).isNotNull().isNotEmpty().containsExactlyElementsOf(List.of(4, 6, 5, 2, 7, 9, 10, 8, 3, 1));
+    }
+
+    @Test
+    public void tesAllDfs(){
+        assertThat(root).isNotNull();
+        assertThat(allDfs(root)).isNotNull().isNotEmpty().containsExactly(
+                Map.entry("preorder", List.of(1,2,4,5,6,3,7,8,9, 10)),
+                Map.entry("inorder", List.of(4,2,6,5,1,7,3,9,8,10)),
+                Map.entry("postorder", List.of(4, 6, 5, 2, 7, 9, 10, 8, 3, 1))
+        );
     }
 
 
