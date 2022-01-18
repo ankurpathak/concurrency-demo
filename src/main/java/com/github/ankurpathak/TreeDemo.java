@@ -284,6 +284,163 @@ public class TreeDemo {
         return identicalTree(root1.left, root2.left) && identicalTree(root2.right, root2.right);
    }
 
+
+   public static <T> List<List<T>> zigzag(TreeNode<T> root){
+        if(root == null)
+            return Collections.emptyList();
+        Deque<TreeNode<T>> queue = new LinkedList<>();
+        boolean lefToRight = true;
+        queue.offerLast(root);
+        List<List<T>> ds = new ArrayList<>();
+        while (!queue.isEmpty()){
+            int levelSize = queue.size();
+            List<T> level = new ArrayList<>();
+            for(int i = 0; i <levelSize; i++){
+                TreeNode<T> node = lefToRight ? queue.pollFirst() : queue.pollLast();
+                if(node != null){
+                    if(lefToRight){
+                        if(node.left != null){
+                            queue.offerLast(node.left);
+                        }
+                        if(node.right != null){
+                            queue.offerLast(node.right);
+                        }
+                    }else {
+                        if(node.right != null){
+                            queue.offerFirst(node.right);
+                        }
+                        if(node.left != null){
+                            queue.offerFirst(node.left);
+                        }
+                    }
+                    level.add(node.data);
+                }
+            }
+            ds.add(level);
+            lefToRight = !lefToRight;
+        }
+        return ds;
+   }
+
+
+    @SuppressWarnings("unchecked")
+    public static <T> List<List<T>> zigzagSimple(TreeNode<T> root){
+        if(root == null)
+            return Collections.emptyList();
+        Deque<TreeNode<T>> queue = new LinkedList<>();
+        boolean lefToRight = true;
+        queue.offerLast(root);
+        List<List<T>> ds = new ArrayList<>();
+        while (!queue.isEmpty()){
+            int levelSize = queue.size();
+            T[] level = (T[])new Object[levelSize];
+            for(int i = 0; i <levelSize; i++){
+                TreeNode<T> node =  queue.pollFirst();
+                if(node != null){
+                    int index = lefToRight ? i : levelSize - i -1;
+                    level[index] = node.data;
+                    if(node.left != null)
+                        queue.offerLast(node.left);
+                    if(node.right != null)
+                        queue.offerLast(node.right);
+                }
+            }
+            ds.add(Arrays.asList(level));
+            lefToRight = !lefToRight;
+        }
+        return ds;
+    }
+
+
+    public static <T> List<T>  leftBoundaryOfTree(TreeNode<T> root, boolean withLeaf){
+        if(root == null)
+            return Collections.emptyList();
+        List<T> ds = new ArrayList<>();
+        TreeNode<T> it = root;
+        while(it != null){
+            if(isLeaf(it)){
+                if(withLeaf){
+                    ds.add(it.data);
+                }
+            }else {
+                ds.add(it.data);
+            }
+            it = it.left != null ? it.left : it.right;
+        }
+        return ds;
+    }
+
+    public static <T> List<T> rightBoundaryOfTree(TreeNode<T> root, boolean withLeaf){
+        if(root == null)
+            return Collections.emptyList();
+        List<T> ds = new ArrayList<>();
+        var it = root;
+        while(it != null){
+            if(isLeaf(it)){
+                if(withLeaf){
+                    ds.add(it.data);
+                }
+            }else {
+                ds.add(it.data);
+            }
+            it = it.right != null ? it.right : it.left;
+        }
+        return ds;
+    }
+
+
+    public static <T> void inorderLeafOnly(TreeNode<T> root, List<T> ds){
+        if(root == null)
+            return;
+        inorderLeafOnly(root.left, ds);
+        if(isLeaf(root)){
+            ds.add(root.data);
+        }
+        inorderLeafOnly(root.right, ds);
+    }
+
+    public static <T> boolean isLeaf(TreeNode<T> root){
+        return root.left == null && root.right == null;
+    }
+
+   public static <T> List<T> boundaryTraversalAnticlockwise(TreeNode<T> root){
+        if(root == null)
+            return Collections.emptyList();
+        List<T> ds = new ArrayList<>();
+        if(!isLeaf(root))
+            ds.add(root.data);
+        List<T> leftBoundary = leftBoundaryOfTree(root.left, false);
+        List<T> leafs = new ArrayList<>();
+        inorderLeafOnly(root, leafs);
+        List<T> rightBoundary = rightBoundaryOfTree(root.right, false);
+        ds.addAll(leftBoundary);
+        ds.addAll(leafs);
+        for(int i = 0; i < rightBoundary.size(); i++){
+            ds.add(rightBoundary.get(rightBoundary.size() -i -1));
+        }
+        return ds;
+   }
+
+    public static <T> List<T> boundaryTraversalClockwise(TreeNode<T> root){
+        if(root == null)
+            return Collections.emptyList();
+        List<T> ds = new ArrayList<>();
+        if(!isLeaf(root))
+            ds.add(root.data);
+        List<T> rightBoundary = rightBoundaryOfTree(root.right, false);
+        List<T> leafs = new ArrayList<>();
+        inorderLeafOnly(root, leafs);
+        List<T> leftBoundary = leftBoundaryOfTree(root.left, false);
+        ds.addAll(rightBoundary);
+        for(int i = 0; i < leafs.size(); i++){
+            ds.add(leafs.get(leafs.size() -i -1));
+        }
+        for(int i = 0; i < leftBoundary.size(); i++){
+            ds.add(leftBoundary.get(leftBoundary.size() -i -1));
+        }
+        return ds;
+    }
+
  }
 
 

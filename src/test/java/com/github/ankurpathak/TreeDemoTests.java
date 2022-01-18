@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +53,40 @@ public class TreeDemoTests {
         assertThat(root).isNotNull();
         var ds =bfs(root);
         assertThat(ds).isNotNull().isNotEmpty().size().isEqualTo(4);
-        assertThat(ds.stream().flatMap(Collection::stream)).containsExactlyElementsOf(List.of(1, 2, 3, 4, 5, 7,8, 6, 9, 10));
+        assertThat(ds).containsExactly(
+                List.of(1),
+                List.of(2, 3),
+                List.of(4, 5, 7, 8),
+                List.of(6,9,10)
+        );
+    }
+
+
+    @Test
+    public void testZigzag(){
+        assertThat(root).isNotNull();
+        var ds = zigzag(root);
+        assertThat(ds).isNotNull().isNotEmpty().size().isEqualTo(4);
+        assertThat(ds).containsExactly(
+                List.of(1),
+                List.of(3,2),
+                List.of(4, 5, 7, 8),
+                List.of(10,9,6)
+        );
+    }
+
+
+    @Test
+    public void testZigzagSimple(){
+        assertThat(root).isNotNull();
+        var ds = zigzagSimple(root);
+        assertThat(ds).isNotNull().isNotEmpty().size().isEqualTo(4);
+        assertThat(ds).containsExactly(
+                List.of(1),
+                List.of(3,2),
+                List.of(4, 5, 7, 8),
+                List.of(10,9,6)
+        );
     }
 
 
@@ -137,6 +169,53 @@ public class TreeDemoTests {
         var root3 = create(rootNotIdenticalSequence);
         assertThat(root3).isNotNull();
         assertThat(identicalTree(root, root3)).isFalse();
+    }
+
+
+    @Test
+    public void testLeftBoundary(){
+        assertThat(root).isNotNull();
+        assertThat(leftBoundaryOfTree(root.left, false)).containsExactly(2);
+        assertThat(leftBoundaryOfTree(root.left, true)).containsExactly(2, 4);
+    }
+
+
+
+
+    @Test
+    public void testRightBoundary(){
+        assertThat(root).isNotNull();
+        assertThat(rightBoundaryOfTree(root.right, false)).containsExactly(3, 8);
+        assertThat(rightBoundaryOfTree(root.right, true)).containsExactly(3,8,10);
+    }
+
+
+    @Test
+    public void testInorderLeafOnly(){
+        assertThat(root).isNotNull();
+        assertThat(ds).isNotNull().isEmpty();
+        inorderLeafOnly(root, ds);
+        assertThat(ds).isNotNull().isNotEmpty().containsExactly(4, 6, 7, 9, 10);
+    }
+
+
+    @Test
+    public void testBoundaryAnticlockwise(){
+        assertThat(root).isNotNull();
+        assertThat(boundaryTraversalAnticlockwise(root)).isNotNull().isNotEmpty()
+                .containsExactly(
+                        1, 2, 4, 6,7,9,10,8,3
+                );
+    }
+
+
+    @Test
+    public void testBoundaryClockwise(){
+        assertThat(root).isNotNull();
+        assertThat(boundaryTraversalClockwise(root)).isNotNull().isNotEmpty()
+                .containsExactly(
+                        1, 3, 8, 10, 9, 7, 6, 4, 2
+                );
     }
 
 
