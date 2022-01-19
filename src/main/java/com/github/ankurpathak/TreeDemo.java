@@ -526,6 +526,45 @@ public class TreeDemo {
         return new ArrayList<>(bottomView.values());
     }
 
+    public static List<Integer> rightView(TreeNode root){
+        if(root == null)
+            return Collections.emptyList();
+
+        List<Integer> ds = new ArrayList<>();
+        addRightView(root, 0, ds);
+        return ds;
+    }
+
+    public static void addRightView(TreeNode root, int level, List<Integer> ds){
+        if(root == null){
+            return;
+        }
+        if(level == ds.size()){
+            ds.add(root.data);
+        }
+        addRightView(root.right, level + 1, ds);
+        addRightView(root.left, level + 1, ds);
+    }
+
+    public static List<Integer> leftView(TreeNode root){
+        if(root == null)
+            return Collections.emptyList();
+        List<Integer> ds =  new ArrayList<>();
+        addLeftView(root, 0, ds);
+        return ds;
+    }
+
+    public static void addLeftView(TreeNode root, int level, List<Integer> ds){
+        if(root == null){
+            return;
+        }
+        if(ds.size() == level)
+            ds.add(root.data);
+
+        addLeftView(root.left, level + 1, ds);
+        addLeftView(root.right, level + 1, ds);
+    }
+
  }
 
 

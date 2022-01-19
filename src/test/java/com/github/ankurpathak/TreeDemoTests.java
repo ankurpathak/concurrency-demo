@@ -246,6 +246,20 @@ public class TreeDemoTests {
     }
 
 
+    @Test
+    public void testRightView(){
+        assertThat(root).isNotNull();
+        assertThat(rightView(root)).isNotNull().isNotNull().containsExactly(1, 3, 8, 10);
+    }
+
+
+    @Test
+    public void testLeftView(){
+        assertThat(root).isNotNull();
+        assertThat(leftView(root)).isNotNull().isNotEmpty().containsExactly(1, 2, 4, 6);
+    }
+
+
 
 
 
