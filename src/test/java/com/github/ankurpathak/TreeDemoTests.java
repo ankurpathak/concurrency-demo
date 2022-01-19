@@ -232,6 +232,19 @@ public class TreeDemoTests {
         );
     }
 
+    @Test
+    public void testTopView(){
+        assertThat(root).isNotNull();
+        assertThat(topView(root)).isNotNull().isNotNull().containsExactly(4, 2, 1,3,8,10);
+    }
+
+
+    @Test
+    public void testBottomView(){
+        assertThat(root).isNotNull();
+        assertThat(bottomView(root)).isNotNull().isNotNull().containsExactly(4, 6, 7, 9,8,10);
+    }
+
 
 
 

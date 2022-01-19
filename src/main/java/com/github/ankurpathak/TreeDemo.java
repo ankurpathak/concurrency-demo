@@ -457,7 +457,7 @@ public class TreeDemo {
         while (!queue.isEmpty()){
             var triplet =  queue.pollFirst();
 
-            var horizontalLevelMap = verticalLevelMap.computeIfAbsent(triplet.val2, it -> new TreeMap<>());
+            var horizontalLevelMap = verticalLevelMap.putIfAbsent(triplet.val2, new TreeMap<>());
 
             var intersectionBag = horizontalLevelMap.computeIfAbsent(triplet.val1, it -> new PriorityQueue<>());
 
@@ -484,6 +484,48 @@ public class TreeDemo {
         return ds;
     }
 
+    public static List<Integer> topView(TreeNode root){
+        if(root == null)
+            return Collections.emptyList();
+
+        var queue = new LinkedList<Pair>();
+        Map<Integer, Integer> topView = new TreeMap<>();
+        queue.offerLast(new Pair(root, 0));
+        while (!queue.isEmpty()){
+            Pair pair = queue.pollFirst();
+            topView.putIfAbsent(pair.val, pair.t.data);
+            if(pair.t.left != null){
+                queue.offerLast(new Pair(pair.t.left, pair.val -1));
+            }
+
+            if(pair.t.right != null){
+                queue.offerLast(new Pair(pair.t.right, pair.val + 1));
+            }
+        }
+        return new ArrayList<>(topView.values());
+    }
+
+    public static List<Integer> bottomView(TreeNode root){
+        if(root == null)
+            return Collections.emptyList();
+
+        var queue = new LinkedList<Pair>();
+        Map<Integer, Integer> bottomView = new TreeMap<>();
+        queue.offerLast(new Pair(root, 0));
+        while (!queue.isEmpty()){
+            Pair pair = queue.pollFirst();
+            bottomView.put(pair.val, pair.t.data);
+            if(pair.t.left != null){
+                queue.offerLast(new Pair(pair.t.left, pair.val -1));
+            }
+
+            if(pair.t.right != null){
+                queue.offerLast(new Pair(pair.t.right, pair.val + 1));
+            }
+        }
+        return new ArrayList<>(bottomView.values());
+    }
+
  }
 
 
@@ -493,6 +535,7 @@ class Pair{
     int val;
 
     public Pair(TreeNode t, int val) {
+        Objects.requireNonNull(t);
         this.t = t;
         this.val = val;
     }
@@ -504,12 +547,10 @@ class Triplet{
     int val2;
 
     public Triplet(TreeNode t, int val1, int val2) {
+        Objects.requireNonNull(t);
         this.t = t;
         this.val1 = val1;
         this.val2 = val2;
-    }
-
-    public Triplet() {
     }
 }
 
