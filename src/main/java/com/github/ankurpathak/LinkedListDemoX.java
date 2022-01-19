@@ -8,7 +8,7 @@ public class LinkedListDemoX {
 
     public static void main(String[] args) {
         Integer[] a = {1, 2, 3, 4, 5};
-        ListNode<Integer> root = create(a);
+        ListNode root = create(a);
         traverse(root, "Link List Created");
         root = remove(root, 2);
         traverse(root, "Link List After Index 2 Removed");
@@ -72,28 +72,28 @@ public class LinkedListDemoX {
 
 
 
-    public static <T> ListNode<T> create(T[] a){
+    public static  ListNode create(Integer[] a){
         if(a == null || a.length == 0)
             return null;
 
-        ListNode<T> start = new ListNode<>();
+        ListNode start = new ListNode();
 
-        ListNode<T> it = start;
-        for (T t : a) {
-            it.next = new ListNode<>(t);
+        ListNode it = start;
+        for (Integer t: a) {
+            it.next = new ListNode(t);
             it = it.next;
         }
         return start.next;
     }
 
 
-    public static <T> ListNode<T> addFirst(ListNode<T> head, T data) {
-        ListNode<T> toAdd = new ListNode<>(data);
+    public static  ListNode addFirst(ListNode head,Integer data) {
+        ListNode toAdd = new ListNode(data);
         toAdd.next = head;
         return toAdd;
     }
 
-    public static <T> ListNode<T> removeFirst(ListNode<T> head) {
+    public static  ListNode removeFirst(ListNode head) {
         // list is empty and nothing to delete
         if (head == null)
             return null;
@@ -105,14 +105,14 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> add(ListNode<T> head, T data, int index) {
+    public static  ListNode add(ListNode head,Integer data, int index) {
         if (index < 0)
             return head;
 
-        ListNode<T> start = new ListNode<>();
+        ListNode start = new ListNode();
         start.next = head;
 
-        ListNode<T> it = start;
+        ListNode it = start;
         int counter = 0;
         while (it != null && counter < index) {
             counter++;
@@ -122,7 +122,7 @@ public class LinkedListDemoX {
         if (it == null)
             return head;
 
-        ListNode<T> toAdd = new ListNode<>(data);
+        ListNode toAdd = new ListNode(data);
         toAdd.next = it.next;
         it.next = toAdd;
 
@@ -130,17 +130,17 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> remove(ListNode<T> head, int index){
+    public static  ListNode remove(ListNode head, int index){
         if(index < 0)
             return head;
 
         if(head == null)
             return null;
 
-        ListNode<T> start = new ListNode<>();
+        ListNode start = new ListNode();
         start.next = head;
 
-        ListNode<T> it =  start;
+        ListNode it =  start;
         int counter = 0;
         while(it != null && counter < index){
             counter++;
@@ -162,13 +162,13 @@ public class LinkedListDemoX {
 
 
 
-    public static <T> ListNode<T> addLast(ListNode<T> head, T data) {
+    public static  ListNode addLast(ListNode head,Integer data) {
 
-        ListNode<T> toAdd = new ListNode<>(data);
-        ListNode<T> start =  new ListNode<>();
+        ListNode toAdd = new ListNode(data);
+        ListNode start =  new ListNode();
         start.next = head;
 
-        ListNode<T> it = start;
+        ListNode it = start;
         while (it.next != null) {
             it = it.next;
         }
@@ -178,16 +178,16 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> removeLast(ListNode<T> head) {
+    public static  ListNode removeLast(ListNode head) {
 
         if (head == null)
             return null;
 
-        ListNode<T> start = new ListNode<>();
+        ListNode start = new ListNode();
         start.next = head;
 
 
-        ListNode<T> it = start;
+        ListNode it = start;
         while (it.next.next != null) {
             it = it.next;
         }
@@ -198,11 +198,11 @@ public class LinkedListDemoX {
         return start.next;
     }
 
-    public static <T> ListNode<T> reverse(ListNode<T> head){
-        ListNode<T> start = null;
-        ListNode<T> it =  head;
+    public static  ListNode reverse(ListNode head){
+        ListNode start = null;
+        ListNode it =  head;
         while(it != null){
-            ListNode<T> next =  it.next;
+            ListNode next =  it.next;
             it.next = start;
             start =  it;
             it = next;
@@ -211,11 +211,11 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> reverseRecursive(ListNode<T> start, ListNode<T> it){
+    public static  ListNode reverseRecursive(ListNode start, ListNode it){
         if(it == null)
             return start;
 
-        ListNode<T> returnNode = reverseRecursive(it, it.next);
+        ListNode returnNode = reverseRecursive(it, it.next);
 
         it.next =  start;
 
@@ -223,14 +223,14 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> removeNthNodeFromLast2N(ListNode<T> head, int n){
+    public static  ListNode removeNthNodeFromLast2N(ListNode head, int n){
         int count = count(head);
         int stopPos = count - n;
 
-        ListNode<T> start = new ListNode<>();
+        ListNode start = new ListNode();
         start.next = head;
 
-        ListNode<T> it = start;
+        ListNode it = start;
         for(int i = 0 ; it != null && i < stopPos; i++){
             it =  it.next;
         }
@@ -243,11 +243,11 @@ public class LinkedListDemoX {
         return start.next;
     }
 
-    public static <T> ListNode<T> removeNthNodeFromLastN(ListNode<T> head, int n){
-        ListNode<T> start = new ListNode<>();
+    public static  ListNode removeNthNodeFromLastN(ListNode head, int n){
+        ListNode start = new ListNode();
         start.next = head;
-        ListNode<T> fast = start;
-        ListNode<T> slow = start;
+        ListNode fast = start;
+        ListNode slow = start;
 
         for(int i = 0; fast != null && i < n; i++){
             fast = fast.next;
@@ -269,11 +269,11 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> findMiddleNodeN(ListNode<T> head){
-        ListNode<T> start = new ListNode<>();
+    public static  ListNode findMiddleNodeN(ListNode head){
+        ListNode start = new ListNode();
         start.next =  head;
-        ListNode<T> fast = start;
-        ListNode<T> slow = start;
+        ListNode fast = start;
+        ListNode slow = start;
         while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
@@ -286,14 +286,14 @@ public class LinkedListDemoX {
     }
 
 
-    public static <T> ListNode<T> findMiddleNode2N(ListNode<T> head){
+    public static  ListNode findMiddleNode2N(ListNode head){
         int n = count(head);
         int stopPos = (n >> 1) + 1;
 
-        ListNode<T> start = new ListNode<>();
+        ListNode start = new ListNode();
         start.next =  head;
 
-        ListNode<T> it = start;
+        ListNode it = start;
         for(int i = 0; it !=null && i < stopPos; i++){
             it = it.next;
         }

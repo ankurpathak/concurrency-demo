@@ -8,7 +8,7 @@ public class LinkedListDemo {
 
     public static void main(String[] args) {
         Integer[] a = {1, 2, 3, 4, 5};
-        ListNode<Integer> root = create(a);
+        ListNode root = create(a);
         traverse(root, "Link List Created");
         root = remove(root, 2);
         traverse(root, "Link List After Index 2 Removed");
@@ -50,17 +50,17 @@ public class LinkedListDemo {
 
 
 
-    public static <T> ListNode<T> create(T[] a){
+    public static  ListNode create(Integer[] a){
         if(a == null || a.length == 0)
             return null;
 
-        ListNode<T> head = null , it = null;
-        for (T t : a) {
+        ListNode head = null , it = null;
+        for (Integer t: a) {
             if (it == null) {
-                it = new ListNode<>(t);
+                it = new ListNode(t);
                 head = it;
             } else {
-                it.next = new ListNode<>(t);
+                it.next = new ListNode(t);
                 it = it.next;
             }
         }
@@ -68,13 +68,13 @@ public class LinkedListDemo {
     }
 
 
-    public static <T> ListNode<T> addFirst(ListNode<T> head, T data) {
-        ListNode<T> toAdd = new ListNode<>(data);
+    public static  ListNode addFirst(ListNode head,Integer data) {
+        ListNode toAdd = new ListNode(data);
         toAdd.next = head;
         return toAdd;
     }
 
-    public static <T> ListNode<T> removeFirst(ListNode<T> head) {
+    public static  ListNode removeFirst(ListNode head) {
         // list is empty and nothing to delete
         if (head == null)
             return null;
@@ -86,17 +86,17 @@ public class LinkedListDemo {
     }
 
 
-    public static <T> ListNode<T> add(ListNode<T> head, T data, int index) {
+    public static  ListNode add(ListNode head,Integer data, int index) {
         if (index < 0)
             return head;
 
         if(index == 0){
-            ListNode<T> toAdd =  new ListNode<>(data);
+            ListNode toAdd =  new ListNode(data);
             toAdd.next = head;
             return toAdd;
         }
 
-        ListNode<T> it = head;
+        ListNode it = head;
         int counter = 0;
         while (it != null && counter < index - 1) {
             counter++;
@@ -106,7 +106,7 @@ public class LinkedListDemo {
         if (it == null)
             return head;
 
-        ListNode<T> toAdd = new ListNode<>(data);
+        ListNode toAdd = new ListNode(data);
         toAdd.next = it.next;
         it.next = toAdd;
 
@@ -114,7 +114,7 @@ public class LinkedListDemo {
     }
 
 
-    public static <T> ListNode<T> remove(ListNode<T> head, int index){
+    public static  ListNode remove(ListNode head, int index){
         if(index < 0)
             return head;
 
@@ -127,7 +127,7 @@ public class LinkedListDemo {
             return head;
         }
 
-        ListNode<T> it =  head;
+        ListNode it =  head;
         int counter = 0;
         while(it != null && counter < index - 1 ){
             counter++;
@@ -145,14 +145,14 @@ public class LinkedListDemo {
     }
 
 
-    public static <T> ListNode<T> addLast(ListNode<T> head, T data) {
+    public static  ListNode addLast(ListNode head,Integer data) {
         //list is empty and insert as first node
-        ListNode<T> toAdd = new ListNode<>(data);
+        ListNode toAdd = new ListNode(data);
         if (head == null) {
             return toAdd;
         }
 
-        ListNode<T> it = head;
+        ListNode it = head;
 
         //move to last node
         while (it.next != null) {
@@ -163,7 +163,7 @@ public class LinkedListDemo {
         return head;
     }
 
-    public static <T> ListNode<T> removeLast(ListNode<T> head) {
+    public static  ListNode removeLast(ListNode head) {
         //list is empty and nothing to delete
         if (head == null)
             return null;
@@ -176,7 +176,7 @@ public class LinkedListDemo {
         }
 
         //move to second last node
-        ListNode<T> it = head;
+        ListNode it = head;
         while (it.next.next != null) {
             it = it.next;
         }

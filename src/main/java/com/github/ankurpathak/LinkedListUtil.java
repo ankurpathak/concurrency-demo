@@ -3,8 +3,8 @@ package com.github.ankurpathak;
 import java.util.Objects;
 
 public class LinkedListUtil {
-    public static <T> int count(ListNode<T> root){
-        ListNode<T> it = root;
+    public static  int count(ListNode root){
+        ListNode it = root;
 
         int count = 0;
         while(it != null){
@@ -15,8 +15,8 @@ public class LinkedListUtil {
         return count;
     }
 
-    public static <T> ListNode<T> search(ListNode<T> head, T data){
-        ListNode<T> it = head;
+    public static  ListNode search(ListNode head,Integer data){
+        ListNode it = head;
         while(it != null){
             if(Objects.equals(data, it.data)){
                 return it;
@@ -26,8 +26,8 @@ public class LinkedListUtil {
         return null;
     }
 
-    public static <T> void traverse(ListNode<T> root, String message){
-        ListNode<T> it = root;
+    public static  void traverse(ListNode root, String message){
+        ListNode it = root;
 
         System.out.printf("%s: ", message);
         while(it != null){

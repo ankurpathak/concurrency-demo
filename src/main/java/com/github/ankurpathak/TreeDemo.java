@@ -5,8 +5,8 @@ import java.util.*;
 public class TreeDemo {
     public static void main(String[] args) {
         Integer a[] = new Integer[]{ 1, 2, 3, 4, 5, 7, 8, null,null, 6,null, null,null,9,10};
-        TreeNode<Integer> root = create(a);
-        List<Integer> sequence =  new ArrayList<>();
+        TreeNode root = create(a);
+        List<Integer> sequence =  new ArrayList();
         inorder(root, sequence);
         System.out.println(sequence);
         sequence.clear();
@@ -15,34 +15,34 @@ public class TreeDemo {
         sequence.clear();
         postorder(root, sequence);
         System.out.println(sequence);
-        List<List<Integer>> ds = new ArrayList<>();
+        List<Integer> ds = new ArrayList<Integer>();
         bfs(root);
         System.out.println(ds);
     }
 
 
-    public static <T> TreeNode<T> create(T a[]){
+    public static  TreeNode create(Integer a[]){
         if(a == null || a.length == 0)
             return null;
-        Deque<Pair<TreeNode<T>>> queue = new LinkedList<>();
-        TreeNode<T> root = new TreeNode<>(a[0]);
-        Pair<TreeNode<T>> pair = new Pair<>(root, 0);
+        Deque<Pair> queue = new LinkedList<>();
+        TreeNode root = new TreeNode(a[0]);
+        Pair pair = new Pair(root, 0);
         queue.offerLast(pair);
         int i = 0;
         while (!queue.isEmpty()){
             pair = queue.pollFirst();
-            int lChildIndex = 2 * pair.index + 1;
-            int rChildIndex = 2 * pair.index + 2;
-            T lChild = a[lChildIndex];
-            T rChild = a[rChildIndex];
+            int lChildIndex = 2 * pair.val + 1;
+            int rChildIndex = 2 * pair.val + 2;
+           Integer lChild = a[lChildIndex];
+           Integer rChild = a[rChildIndex];
             if(lChild != null){
-                pair.t.left = new TreeNode<>(lChild);
-                queue.offerLast(new Pair<>(pair.t.left, lChildIndex));
+                pair.t.left = new TreeNode(lChild);
+                queue.offerLast(new Pair(pair.t.left, lChildIndex));
             }
 
             if(rChild != null){
-                pair.t.right = new TreeNode<>(rChild);
-                queue.offerLast(new Pair<>(pair.t.right, rChildIndex));
+                pair.t.right = new TreeNode(rChild);
+                queue.offerLast(new Pair(pair.t.right, rChildIndex));
             }
             i = rChildIndex;
             if(i >= a.length - 1){
@@ -52,7 +52,7 @@ public class TreeDemo {
         return root;
     }
 
-    public static <T> void inorder(TreeNode<T> root, List<T> ds){
+    public static  void inorder(TreeNode root, List<Integer> ds){
         if(root == null)
             return;
         inorder(root.left, ds);
@@ -60,7 +60,7 @@ public class TreeDemo {
         inorder(root.right, ds);
     }
 
-    public static <T> void preorder(TreeNode<T> root, List<T> ds){
+    public static  void preorder(TreeNode root, List<Integer> ds){
         if(root == null)
             return;
         ds.add(root.data);
@@ -68,7 +68,7 @@ public class TreeDemo {
         preorder(root.right, ds);
     }
 
-    public static <T> void postorder(TreeNode<T> root, List<T> ds){
+    public static  void postorder(TreeNode root, List<Integer> ds){
         if(root == null)
             return;
         postorder(root.left, ds);
@@ -77,17 +77,17 @@ public class TreeDemo {
     }
 
 
-    public static <T> List<List<T>> bfs(TreeNode<T> root){
+    public static  List<List<Integer>> bfs(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        List<List<T>> ds = new ArrayList<>();
-        Deque<TreeNode<T>> queue = new LinkedList<>();
+        List<List<Integer>> ds = new ArrayList<>();
+        Deque<TreeNode> queue = new LinkedList<>();
         queue.offerLast(root);
         while (!queue.isEmpty()){
             int levelElementsCount = queue.size();
-            List<T> level = new ArrayList<>();
+            List<Integer> level = new ArrayList<>();
             for(int i = 0; i < levelElementsCount ; i++){
-                TreeNode<T> node = queue.pollFirst();
+                TreeNode node = queue.pollFirst();
                 if(node != null){
                     if(node.left != null){
                         queue.offerLast(node.left);
@@ -103,14 +103,14 @@ public class TreeDemo {
         return ds;
     }
 
-    public static <T> List<T> preorderIterative(TreeNode<T> root){
+    public static  List<Integer> preorderIterative(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        List<T> ds = new ArrayList<>();
-        Deque<TreeNode<T>> stack = new LinkedList<>();
+        List<Integer> ds = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
         stack.offerFirst(root);
         while (!stack.isEmpty()){
-            TreeNode<T> node = stack.pollFirst();
+            TreeNode node = stack.pollFirst();
             if(node.right != null){
                 stack.offerFirst(node.right);
             }
@@ -122,12 +122,12 @@ public class TreeDemo {
         return ds;
     }
 
-    public static <T> List<T> inorderIterative(TreeNode<T> root){
+    public static  List<Integer> inorderIterative(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        List<T> ds = new ArrayList<>();
-        Deque<TreeNode<T>> stack  = new LinkedList<>();
-        TreeNode<T> node = root;
+        List<Integer> ds = new ArrayList<>();
+        Deque<TreeNode> stack  = new LinkedList<>();
+        TreeNode node = root;
         while(true){
             if(node != null){
                 stack.offerFirst(node);
@@ -143,14 +143,14 @@ public class TreeDemo {
     }
 
 
-    public static <T> List<T> postorderIterative2Stack(TreeNode<T> root){
+    public static  List<Integer> postorderIterative2Stack(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        Deque<TreeNode<T>> stack = new LinkedList<>();
-        var stackDs = new LinkedList<T>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        var stackDs = new LinkedList<Integer>();
         stack.offerFirst(root);
         while(!stack.isEmpty()){
-            TreeNode<T> node = stack.pollFirst();
+            TreeNode node = stack.pollFirst();
             stackDs.offerFirst(node.data);
             if(node.left != null){
                 stack.offerFirst(node.left);
@@ -162,27 +162,27 @@ public class TreeDemo {
         return stackDs;
     }
 
-    public static <T>  void reverseCollection(List<T> list){
+    public static   void reverseCollection(List<Integer> list){
         for(int i = 0; i < (list.size() >> 1); i++){
-            T temp = list.get(i);
+           Integer temp = list.get(i);
             list.set(i, list.get(list.size() - i - 1));
             list.set(list.size()-i -1, temp);
         }
     }
 
 
-    public static <T> List<T> postorderIterative1Stack(TreeNode<T> root){
+    public static  List<Integer> postorderIterative1Stack(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        Deque<TreeNode<T>> stack = new LinkedList<>();
-        List<T> ds = new ArrayList<>();
-        TreeNode<T> node = root;
+        Deque<TreeNode> stack = new LinkedList<>();
+        List<Integer> ds = new ArrayList<>();
+        TreeNode node = root;
         while(node != null || !stack.isEmpty()){
             if(node != null){
                 stack.offerFirst(node);
                 node = node.left;
             }else {
-                TreeNode<T> temp = stack.peekFirst().right;
+                TreeNode temp = stack.peekFirst().right;
                 if(temp != null){
                     node = temp;
                 }else {
@@ -198,38 +198,38 @@ public class TreeDemo {
         return ds;
     }
 
-    public static <T> Map<String, List<T>> allDfs(TreeNode<T> root){
+    public static  Map<String, List<Integer>> allDfs(TreeNode root){
         if(root == null)
             return Collections.emptyMap();
 
-        List<T> preorder = new ArrayList<>();
-        List<T> inorder =  new ArrayList<>();
-        List<T> postorder =  new ArrayList<>();
+        List<Integer> preorder = new ArrayList<>();
+        List<Integer> inorder =  new ArrayList<>();
+        List<Integer> postorder =  new ArrayList<>();
 
-        Deque<Pair<TreeNode<T>>> stack = new LinkedList<>();
-        stack.offerFirst(new Pair<>(root, 1));
+        Deque<Pair> stack = new LinkedList<>();
+        stack.offerFirst(new Pair(root, 1));
         while (!stack.isEmpty()){
             var pair = stack.pollFirst();
-            if(pair.index == 1){
+            if(pair.val == 1){
                 preorder.add(pair.t.data);
-                pair.index++;
+                pair.val++;
                 stack.offerFirst(pair);
                 if(pair.t.left != null){
-                    stack.offerFirst(new Pair<>(pair.t.left, 1));
+                    stack.offerFirst(new Pair(pair.t.left, 1));
                 }
-            }else if(pair.index == 2){
+            }else if(pair.val == 2){
                 inorder.add(pair.t.data);
-                pair.index++;
+                pair.val++;
                 stack.offerFirst(pair);
                 if(pair.t.right != null){
-                    stack.offerFirst(new Pair<>(pair.t.right, 1));
+                    stack.offerFirst(new Pair(pair.t.right, 1));
                 }
-            }else if(pair.index == 3){
+            }else if(pair.val == 3){
                 postorder.add(pair.t.data);
             }
         }
 
-        Map<String, List<T>> ds = new LinkedHashMap<>();
+        Map<String, List<Integer>> ds = new LinkedHashMap<>();
         ds.put("preorder", preorder);
         ds.put("inorder", inorder);
         ds.put("postorder", postorder);
@@ -237,7 +237,7 @@ public class TreeDemo {
     }
 
 
-   public static <T> int height(TreeNode<T> root){
+   public static  int height(TreeNode root){
         if(root == null)
             return 0;
 
@@ -247,7 +247,7 @@ public class TreeDemo {
         return 1 + Math.max(lh, rh);
    }
 
-   public static  <T> int balancedTree(TreeNode<T> root){
+   public static   int balancedTree(TreeNode root){
         if(root == null)
             return 0;
 
@@ -264,7 +264,7 @@ public class TreeDemo {
    }
 
 
-   public static <T> int diameter(TreeNode<T> root, int[] diameter){
+   public static  int diameter(TreeNode root, int[] diameter){
         if(root == null)
             return 0;
 
@@ -278,7 +278,7 @@ public class TreeDemo {
    }
 
 
-   public static <T> boolean identicalTree(TreeNode<T> root1, TreeNode<T> root2){
+   public static  boolean identicalTree(TreeNode root1, TreeNode root2){
         if(root1 == null || root2 == null)
             return root1 == root2;
 
@@ -289,18 +289,18 @@ public class TreeDemo {
    }
 
 
-   public static <T> List<List<T>> zigzag(TreeNode<T> root){
+   public static  List<List<Integer>> zigzag(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        Deque<TreeNode<T>> queue = new LinkedList<>();
+        Deque<TreeNode> queue = new LinkedList<>();
         boolean lefToRight = true;
         queue.offerLast(root);
-        List<List<T>> ds = new ArrayList<>();
+        List<List<Integer>> ds = new ArrayList<>();
         while (!queue.isEmpty()){
             int levelSize = queue.size();
-            List<T> level = new ArrayList<>();
+            List<Integer> level = new ArrayList<>();
             for(int i = 0; i <levelSize; i++){
-                TreeNode<T> node = lefToRight ? queue.pollFirst() : queue.pollLast();
+                TreeNode node = lefToRight ? queue.pollFirst() : queue.pollLast();
                 if(node != null){
                     if(lefToRight){
                         if(node.left != null){
@@ -328,18 +328,18 @@ public class TreeDemo {
 
 
     @SuppressWarnings("unchecked")
-    public static <T> List<List<T>> zigzagSimple(TreeNode<T> root){
+    public static  List<List<Integer>> zigzagSimple(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        Deque<TreeNode<T>> queue = new LinkedList<>();
+        Deque<TreeNode> queue = new LinkedList<>();
         boolean lefToRight = true;
         queue.offerLast(root);
-        List<List<T>> ds = new ArrayList<>();
+        List<List<Integer>> ds = new ArrayList<>();
         while (!queue.isEmpty()){
             int levelSize = queue.size();
-            T[] level = (T[])new Object[levelSize];
+            Integer[] level = new Integer[levelSize];
             for(int i = 0; i <levelSize; i++){
-                TreeNode<T> node =  queue.pollFirst();
+                TreeNode node =  queue.pollFirst();
                 if(node != null){
                     int index = lefToRight ? i : levelSize - i -1;
                     level[index] = node.data;
@@ -356,11 +356,11 @@ public class TreeDemo {
     }
 
 
-    public static <T> List<T>  leftBoundaryOfTree(TreeNode<T> root, boolean withLeaf){
+    public static  List<Integer>  leftBoundaryOfTree(TreeNode root, boolean withLeaf){
         if(root == null)
             return Collections.emptyList();
-        List<T> ds = new ArrayList<>();
-        TreeNode<T> it = root;
+        List<Integer> ds = new ArrayList<>();
+        TreeNode it = root;
         while(it != null){
             if(isLeaf(it)){
                 if(withLeaf){
@@ -374,10 +374,10 @@ public class TreeDemo {
         return ds;
     }
 
-    public static <T> List<T> rightBoundaryOfTree(TreeNode<T> root, boolean withLeaf){
+    public static  List<Integer> rightBoundaryOfTree(TreeNode root, boolean withLeaf){
         if(root == null)
             return Collections.emptyList();
-        List<T> ds = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
         var it = root;
         while(it != null){
             if(isLeaf(it)){
@@ -393,7 +393,7 @@ public class TreeDemo {
     }
 
 
-    public static <T> void inorderLeafOnly(TreeNode<T> root, List<T> ds){
+    public static  void inorderLeafOnly(TreeNode root, List<Integer> ds){
         if(root == null)
             return;
         inorderLeafOnly(root.left, ds);
@@ -403,20 +403,20 @@ public class TreeDemo {
         inorderLeafOnly(root.right, ds);
     }
 
-    public static <T> boolean isLeaf(TreeNode<T> root){
+    public static  boolean isLeaf(TreeNode root){
         return root.left == null && root.right == null;
     }
 
-   public static <T> List<T> boundaryTraversalAnticlockwise(TreeNode<T> root){
+   public static  List<Integer> boundaryTraversalAnticlockwise(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        List<T> ds = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
         if(!isLeaf(root))
             ds.add(root.data);
-        List<T> leftBoundary = leftBoundaryOfTree(root.left, false);
-        List<T> leafs = new ArrayList<>();
+        List<Integer> leftBoundary = leftBoundaryOfTree(root.left, false);
+        List<Integer> leafs = new ArrayList<>();
         inorderLeafOnly(root, leafs);
-        List<T> rightBoundary = rightBoundaryOfTree(root.right, false);
+        List<Integer> rightBoundary = rightBoundaryOfTree(root.right, false);
         ds.addAll(leftBoundary);
         ds.addAll(leafs);
         for(int i = 0; i < rightBoundary.size(); i++){
@@ -425,16 +425,16 @@ public class TreeDemo {
         return ds;
    }
 
-    public static <T> List<T> boundaryTraversalClockwise(TreeNode<T> root){
+    public static  List<Integer> boundaryTraversalClockwise(TreeNode root){
         if(root == null)
             return Collections.emptyList();
-        List<T> ds = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
         if(!isLeaf(root))
             ds.add(root.data);
-        List<T> rightBoundary = rightBoundaryOfTree(root.right, false);
-        List<T> leafs = new ArrayList<>();
+        List<Integer> rightBoundary = rightBoundaryOfTree(root.right, false);
+        List<Integer> leafs = new ArrayList<>();
         inorderLeafOnly(root, leafs);
-        List<T> leftBoundary = leftBoundaryOfTree(root.left, false);
+        List<Integer> leftBoundary = leftBoundaryOfTree(root.left, false);
         ds.addAll(rightBoundary);
         for(int i = 0; i < leafs.size(); i++){
             ds.add(leafs.get(leafs.size() -i -1));
@@ -445,17 +445,71 @@ public class TreeDemo {
         return ds;
     }
 
+
+    public static  List<List<Integer>> verticalLevelTraversal(TreeNode root){
+        if(root == null)
+            return Collections.emptyList();
+
+        Map<Integer, Map<Integer, Collection<Integer>>> verticalLevelMap = new TreeMap<>();
+        var queue = new LinkedList<Triplet>();
+        queue.offerLast(new Triplet(root, 0, 0));
+
+        while (!queue.isEmpty()){
+            var triplet =  queue.pollFirst();
+
+            var horizontalLevelMap = verticalLevelMap.computeIfAbsent(triplet.val2, it -> new TreeMap<>());
+
+            var intersectionBag = horizontalLevelMap.computeIfAbsent(triplet.val1, it -> new PriorityQueue<>());
+
+
+            intersectionBag.add(triplet.t.data);
+
+            if(triplet.t.left != null){
+                queue.offerLast(new Triplet(triplet.t.left, triplet.val1 + 1, triplet.val2 - 1));
+            }
+
+            if(triplet.t.right != null){
+                queue.offerLast(new Triplet(triplet.t.right, triplet.val1 + 1, triplet.val2 + 1));
+            }
+        }
+
+        List<List<Integer>> ds =  new ArrayList<>();
+        for(Map<Integer, Collection<Integer>> horizontalLevelMap: verticalLevelMap.values()){
+            List<Integer> verticalLevel = new ArrayList<>();
+            for(Collection<Integer> intersectionBag: horizontalLevelMap.values()){
+                verticalLevel.addAll(intersectionBag);
+            }
+            ds.add(verticalLevel);
+        }
+        return ds;
+    }
+
  }
 
 
 
-class Pair<T>{
-    T t;
-    int index;
+class Pair{
+   TreeNode t;
+    int val;
 
-    public Pair(T t, int index) {
+    public Pair(TreeNode t, int val) {
         this.t = t;
-        this.index = index;
+        this.val = val;
+    }
+}
+
+class Triplet{
+   TreeNode t;
+    int val1;
+    int val2;
+
+    public Triplet(TreeNode t, int val1, int val2) {
+        this.t = t;
+        this.val1 = val1;
+        this.val2 = val2;
+    }
+
+    public Triplet() {
     }
 }
 

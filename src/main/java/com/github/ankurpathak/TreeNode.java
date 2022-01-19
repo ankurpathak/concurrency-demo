@@ -1,10 +1,10 @@
 package com.github.ankurpathak;
 
-public class TreeNode<T> {
-    TreeNode<T> left, right;
-    T data;
+public class TreeNode {
+    TreeNode left, right;
+   Integer data;
 
-    TreeNode(T data){
+    TreeNode(Integer data){
         this.data = data;
     }
 }

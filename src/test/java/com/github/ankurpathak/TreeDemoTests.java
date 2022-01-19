@@ -14,7 +14,7 @@ public class TreeDemoTests {
 
 
     private Integer[] rootSequence = new Integer[]{ 1, 2, 3, 4, 5, 7, 8, null,null, 6,null, null,null,9,10};
-    private TreeNode<Integer> root;
+    private TreeNode root;
     private List<Integer> ds = new ArrayList<>();
 
     @BeforeEach
@@ -138,7 +138,7 @@ public class TreeDemoTests {
         assertThat(root).isNotNull();
         assertThat(balancedTree(root)).isEqualTo(4);
         Integer[] notBalancedList = new Integer[]{1,2,4,3,null,5,6,9,null,null,null,null,null,null,7,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null, 8};
-        TreeNode<Integer> notBalancedRoot = create(notBalancedList);
+        TreeNode notBalancedRoot = create(notBalancedList);
         assertThat(notBalancedRoot).isNotNull();
         assertThat(balancedTree(notBalancedRoot)).isEqualTo(-1);
     }
@@ -152,7 +152,7 @@ public class TreeDemoTests {
         assertThat(diameter).isNotNull().isNotEmpty().containsExactly(6);
         diameter = new int[]{0};
         Integer[] diameterList = new Integer[]{1,2,3, null, null, 4, 6, null, null, null, null, 5, null, null,7, null, null, null, null, null, null, null, null, 9,  null, null, null, null, null, null, 8};
-        TreeNode<Integer> diameterListRoot = create(diameterList);
+        TreeNode diameterListRoot = create(diameterList);
         assertThat(diameterListRoot).isNotNull();
         assertThat(diameter(diameterListRoot, diameter)).isEqualTo(5);
         assertThat(diameter).isNotNull().isNotEmpty().containsExactly(6);
@@ -162,7 +162,7 @@ public class TreeDemoTests {
     @Test
     public void testIdenticalTree(){
         assertThat(root).isNotNull();
-        TreeNode<Integer> root2 = create(rootSequence);
+        TreeNode root2 = create(rootSequence);
         assertThat(root2).isNotNull();
         assertThat(identicalTree(root, root2)).isTrue();
         Integer[] rootNotIdenticalSequence = new Integer[]{ 1, 2, 3, 4, 5, 7, 8, 11,null, 6,null, null,null,9,10};
@@ -216,6 +216,20 @@ public class TreeDemoTests {
                 .containsExactly(
                         1, 3, 8, 10, 9, 7, 6, 4, 2
                 );
+    }
+
+
+    @Test
+    public void testVerticalLevelTraversal(){
+        assertThat(root).isNotNull();
+        assertThat(verticalLevelTraversal(root)).isNotNull().isNotEmpty().containsExactly(
+                List.of(4),
+                List.of(2, 6),
+                List.of(1, 5, 7),
+                List.of(3, 9),
+                List.of(8),
+                List.of(10)
+        );
     }
 
 

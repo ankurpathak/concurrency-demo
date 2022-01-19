@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BoundaryTraversalEfficientTests {
     private Integer[] rootSequence = new Integer[]{ 1, 2, 3, 4, 5, 7, 8, null,null, 6,null, null,null,9,10};
-    private TreeNode<Integer> root;
+    private TreeNode root;
 
     @BeforeEach
     public void setUp(){

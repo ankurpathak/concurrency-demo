@@ -16,11 +16,11 @@ public class LinkedListDemoXTest {
     private Integer[] empty = {};
     private Integer[] longListOdd = {1, 2, 3, 4, 5};
     private Integer[] longListEven = {1, 2, 3, 4, 5, 6};
-    private ListNode<Integer> notEmptyRoot;
-    private ListNode<Integer> onlyElementRoot;
-    private ListNode<Integer> emptyRoot;
-    private ListNode<Integer> longListOddRoot;
-    private ListNode<Integer> longListEvenRoot;
+    private ListNode notEmptyRoot;
+    private ListNode onlyElementRoot;
+    private ListNode emptyRoot;
+    private ListNode longListOddRoot;
+    private ListNode longListEvenRoot;
 
 
     @BeforeEach
@@ -78,7 +78,7 @@ public class LinkedListDemoXTest {
         notEmptyRoot = addLast(notEmptyRoot, 4);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(4);
-        ListNode<Integer> it = search(notEmptyRoot, 4);
+        ListNode it = search(notEmptyRoot, 4);
         assertThat(it).isNotNull();
         assertThat(it.data).isEqualTo(4);
     }
@@ -89,7 +89,7 @@ public class LinkedListDemoXTest {
         notEmptyRoot = add(notEmptyRoot, 10, 2);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(4);
-        ListNode<Integer> it = search(notEmptyRoot, 10);
+        ListNode it = search(notEmptyRoot, 10);
         assertThat(it).isNotNull();
         assertThat(it.data).isEqualTo(10);
     }
@@ -121,7 +121,7 @@ public class LinkedListDemoXTest {
         notEmptyRoot = add(notEmptyRoot, 50, count);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(4);
-        ListNode<Integer> it = search(notEmptyRoot, 50);
+        ListNode it = search(notEmptyRoot, 50);
         assertThat(it).isNotNull();
         assertThat(it.next).isNull();
     }
@@ -162,7 +162,7 @@ public class LinkedListDemoXTest {
         notEmptyRoot = removeLast(notEmptyRoot);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(2);
-        ListNode<Integer> it = search(notEmptyRoot, 2);
+        ListNode it = search(notEmptyRoot, 2);
         assertThat(it).isNotNull();
         assertThat(it.next).isNull();
         assertThat(it.data).isEqualTo(2);
@@ -185,7 +185,7 @@ public class LinkedListDemoXTest {
         notEmptyRoot = remove(notEmptyRoot, 1);
         assertThat(notEmptyRoot).isNotNull();
         assertThat(count(notEmptyRoot)).isEqualTo(2);
-        ListNode<Integer> it = search(notEmptyRoot, 2);
+        ListNode it = search(notEmptyRoot, 2);
         assertThat(it).isNull();
     }
 
@@ -211,7 +211,7 @@ public class LinkedListDemoXTest {
         assertThat(longListOddRoot).isNotNull();
         assertThat(count(longListOddRoot)).isEqualTo(5);
         assertThat(longListOddRoot.data).isEqualTo(5);
-        ListNode<Integer> it = search(longListOddRoot, 1);
+        ListNode it = search(longListOddRoot, 1);
         assertThat(it).isNotNull();
         assertThat(it.data).isEqualTo(1);
         assertThat(it.next).isNull();
@@ -243,7 +243,7 @@ public class LinkedListDemoXTest {
         assertThat(longListOddRoot).isNotNull();
         assertThat(count(longListOddRoot)).isEqualTo(5);
         assertThat(longListOddRoot.data).isEqualTo(5);
-        ListNode<Integer> it = search(longListOddRoot, 1);
+        ListNode it = search(longListOddRoot, 1);
         assertThat(it).isNotNull();
         assertThat(it.data).isEqualTo(1);
         assertThat(it.next).isNull();
@@ -325,7 +325,7 @@ public class LinkedListDemoXTest {
 
     @Test
     public void testfindMiddleNodeN() {
-        ListNode<Integer> middle = findMiddleNodeN(longListEvenRoot);
+        ListNode middle = findMiddleNodeN(longListEvenRoot);
         assertThat(middle).isNotNull()
                 .extracting(ListNode::getData)
                 .isEqualTo(4);
@@ -346,7 +346,7 @@ public class LinkedListDemoXTest {
 
     @Test
     public void testfindMiddleNode2N() {
-        ListNode<Integer> middle = findMiddleNodeN(longListEvenRoot);
+        ListNode middle = findMiddleNodeN(longListEvenRoot);
         assertThat(middle).isNotNull()
                 .extracting(ListNode::getData)
                 .isEqualTo(4);
