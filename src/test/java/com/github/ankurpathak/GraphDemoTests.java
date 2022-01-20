@@ -15,6 +15,8 @@ public class GraphDemoTests {
     private List<List<Integer>> secondGraph;
     private List<List<Integer>> thirdGraph;
     private List<List<Integer>> fourthGraph;
+    private List<List<Integer>> fifthGraph;
+    private List<List<Integer>> sixthGraph;
 
 
     @BeforeEach
@@ -68,6 +70,35 @@ public class GraphDemoTests {
                 List.of(6, 10), //9
                 List.of(9) //10
         );
+
+        fifthGraph = List.of(
+                Collections.emptyList(), //0
+                List.of(2, 3), //1
+                List.of(1, 3, 4), //2
+                List.of(1, 2, 5), //3
+                List.of(2, 5, 6), //4
+                List.of(3, 4, 6), //5
+                List.of(4, 5, 7), //6
+                List.of(6, 8), //7
+                List.of(7, 9), //8
+                List.of(8) //9
+        );
+
+        sixthGraph = List.of(
+                Collections.emptyList(), //0
+                List.of(2), //1
+                List.of(1, 3, 5), //2
+                List.of(2,4), //3
+                List.of(3,5,7), //4
+                List.of(2,4,6), //5
+                List.of(5,7), //6
+                List.of(4,6), //7
+                List.of(9,10), //8
+                List.of(8,10), //9
+                List.of(8,9) //10
+        );
+
+
     }
 
 
@@ -86,6 +117,10 @@ public class GraphDemoTests {
     public void testBfs() {
         assertThat(fourthGraph).isNotNull().isNotEmpty();
         assertThat(bfsTraversal(fourthGraph)).isNotNull().isNotEmpty().containsExactly(1,2,3,4,6,5,7,9,8,10);
+        assertThat(fifthGraph).isNotNull().isNotEmpty();
+        assertThat(bfsTraversal(fifthGraph)).isNotNull().isNotEmpty().containsExactly(1,2,3,4,5,6,7,8,9);
+        assertThat(sixthGraph).isNotNull().isNotEmpty();
+        assertThat(bfsTraversal(sixthGraph)).isNotNull().isNotEmpty().containsExactly(1,2,3,5,4,6,7,8,9,10);
     }
 
 }
