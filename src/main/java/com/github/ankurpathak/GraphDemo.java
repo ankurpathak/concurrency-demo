@@ -60,7 +60,7 @@ public class GraphDemo {
             ds.add(node);
             for(Integer adjacent: graph.get(node)){
                 if(!visited[adjacent]){
-                    queue.push(adjacent);
+                    queue.offerLast(adjacent);
                     visited[adjacent] =  true;
                 }
             }
