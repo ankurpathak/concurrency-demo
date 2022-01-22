@@ -4,8 +4,7 @@ import java.util.*;
 
 public class CombinationSum2 {
     public static void main(String[] args) {
-      //  System.out.println(combinationSum2(new int[]{1, 1, 1, 2, 2}, 4));
-
+        System.out.println(combinationSum2(new int[]{1, 1, 1, 2, 2}, 4));
         System.out.println(combinationSum2(new int[]{2,5,2,1,2}, 5));
     }
 
@@ -19,11 +18,11 @@ public class CombinationSum2 {
     }
 
     private static void combinationSum2(int[] candidates, int target, int i, int sum, Deque<Integer> ds, List<List<Integer>> collector) {
-        if(sum >= target){
-            if(sum == target){
-                collector.add(new ArrayList<>(ds));
-            }
+        if(sum > target)
             return;
+
+        if(sum == target){
+            collector.add(new ArrayList<>(ds));
         }
 
         for (int j = i; j < candidates.length; j++) {
