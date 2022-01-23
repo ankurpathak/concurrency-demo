@@ -32,7 +32,8 @@ public class BoundaryTraversalEfficient {
         addLeafNodes(root, ds, false);
         int sizeBeforeLeftBoundary = ds.size();
         addLeftBoundary(root, ds);
-        reverse(ds, sizeBeforeLeftBoundary);
+        Collections.reverse(ds.subList(sizeBeforeLeftBoundary, ds.size()));
+      //  reverse(ds, sizeBeforeLeftBoundary);
         return ds;
     }
 
