@@ -7,6 +7,33 @@ import java.util.List;
 public class GraphCycle {
 
 
+    public static boolean dfsDirectedCycleChecker(List<List<Integer>> graph) {
+        boolean visited[] = new boolean[graph.size()];
+        boolean pathVisited[] = new boolean[graph.size()];
+
+        for (int i = 1; i < graph.size(); i++) {
+            if (!visited[i]) {
+                return dfsDirectedCycle(graph, i, visited, pathVisited);
+            }
+        }
+        return false;
+    }
+
+    private static boolean dfsDirectedCycle(List<List<Integer>> graph, int node, boolean[] visited, boolean[] pathVisited) {
+        visited[node] = true;
+        pathVisited[node] = true;
+
+        for (Integer it : graph.get(node)) {
+            if (!visited[it]) {
+                if (dfsDirectedCycle(graph, it, visited, pathVisited)) return true;
+            } else {
+                if (pathVisited[it]) return true;
+            }
+        }
+        return false;
+    }
+
+
     public static boolean dfsCycleChecker(List<List<Integer>> graph) {
         boolean[] visited = new boolean[graph.size()];
         for (int i = 1; i < graph.size(); i++) {
@@ -37,8 +64,9 @@ public class GraphCycle {
             for (Integer it : graph.get(curr.node)) {
                 if (!visited[it]) {
                     visited[it] = true;
+                    queue.push(new Pair(it, curr.node));
                 } else {
-                    if (it != parent)
+                    if (it != curr.parent)
                         return true;
                 }
             }
