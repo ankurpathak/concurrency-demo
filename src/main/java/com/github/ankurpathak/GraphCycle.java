@@ -1,6 +1,7 @@
 package com.github.ankurpathak;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
@@ -101,5 +102,30 @@ public class GraphCycle {
             this.node = node;
             this.parent = parent;
         }
+    }
+
+
+    public static boolean notBipartiteChecker(List<List<Integer>> graph) {
+        int[] colored = new int[graph.size()];
+        Arrays.fill(colored, -1);
+        for (int i = 1; i < graph.size(); i++) {
+            if (colored[i] == -1) {
+                return dfsBipartite(graph, i, colored, false);
+            }
+        }
+        return false;
+    }
+
+    public static boolean dfsBipartite(List<List<Integer>> graph, int node, int[] coloured, boolean color) {
+        int intColor = color ? 1 : 0;
+        coloured[node] = intColor;
+        for (Integer it : graph.get(node)) {
+            if (coloured[it] == -1) {
+                if (dfsBipartite(graph, it, coloured, !color)) return true;
+            } else {
+                if (coloured[it] == intColor) return true;
+            }
+        }
+        return false;
     }
 }

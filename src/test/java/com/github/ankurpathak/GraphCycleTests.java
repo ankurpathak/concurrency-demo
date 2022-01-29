@@ -15,6 +15,7 @@ public class GraphCycleTests {
     private List<List<Integer>> firstDirectedGraph;
     private List<List<Integer>> firstNonCycleGraph;
     private List<List<Integer>> firstDirectedNonCycleGraph;
+    private List<List<Integer>> firstNonBipartiteGraph;
 
 
     @BeforeEach
@@ -68,6 +69,19 @@ public class GraphCycleTests {
         );
 
 
+        firstNonBipartiteGraph = List.of(
+                Collections.emptyList(), //0
+                List.of(2), //1
+                List.of(1, 3), //2
+                List.of(2, 4, 7), //3
+                List.of(3, 5, 8), //4
+                List.of(4, 6), //5
+                List.of(5, 7), //6
+                List.of(3, 6), //7
+                List.of(4)  //8
+        );
+
+
     }
 
     @Test
@@ -95,5 +109,12 @@ public class GraphCycleTests {
 
         assertThat(firstDirectedNonCycleGraph).isNotNull().isNotEmpty();
         assertThat(dfsDirectedCycleChecker(firstDirectedNonCycleGraph)).isFalse();
+    }
+
+
+    @Test
+    public void testNonBipartiteGraph() {
+        assertThat(firstNonBipartiteGraph).isNotNull().isNotEmpty();
+        assertThat(notBipartiteChecker(firstNonBipartiteGraph)).isTrue();
     }
 }
