@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.github.ankurpathak.BinarySearchTree.*;
@@ -12,12 +13,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BinarySearchTreeTests {
     private int[] rootSequence = new int[]{12, 25, 37, 50, 62, 75, 87};
+    private int[] secondRootSequence = new int[]{10, 20, 30, 50, 60, 70, 80};
     private TreeNode root;
+    private TreeNode secondRoot;
     private List<Integer> ds = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
         root = createBst(rootSequence);
+        secondRoot = createBst(secondRootSequence);
     }
 
     @Test
@@ -80,6 +84,24 @@ public class BinarySearchTreeTests {
 
         assertThat(root).isNotNull();
         assertThat(floor(root, -1000)).isNotNull().extracting("val").isEqualTo(Integer.MIN_VALUE);
+    }
+
+    @Test
+    public void testReplaceWithSumOfMinimum() {
+        assertThat(secondRoot).isNotNull();
+        replaceBySumOfSmaller(secondRoot, new int[]{0});
+        inorder(secondRoot, ds);
+        assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 10, 30, 60, 110, 170, 240);
+    }
+
+
+    @Test
+    public void testReplaceWithSumOfLarger() {
+        assertThat(secondRoot).isNotNull();
+        replaceBySumOfLarger(secondRoot, new int[]{0});
+        inorder(secondRoot, ds);
+        Collections.reverse(ds);
+        assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 80, 150, 210, 260, 290, 310);
     }
 
 

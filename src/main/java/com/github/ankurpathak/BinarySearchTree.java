@@ -94,4 +94,25 @@ public class BinarySearchTree {
     }
 
 
+    public static void replaceBySumOfSmaller(TreeNode root, int[] sum) {
+        if (root == null)
+            return;
+        replaceBySumOfSmaller(root.left, sum);
+        int temp = sum[0];
+        sum[0] += root.val;
+        root.val = temp;
+        replaceBySumOfSmaller(root.right, sum);
+    }
+
+    public static void replaceBySumOfLarger(TreeNode root, int[] sum) {
+        if (root == null)
+            return;
+        replaceBySumOfLarger(root.right, sum);
+        int temp = sum[0];
+        sum[0] += root.val;
+        root.val = temp;
+        replaceBySumOfLarger(root.left, sum);
+    }
+
+
 }
