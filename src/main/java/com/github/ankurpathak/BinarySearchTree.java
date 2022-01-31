@@ -1,5 +1,7 @@
 package com.github.ankurpathak;
 
+import java.util.List;
+
 public class BinarySearchTree {
 
 
@@ -20,47 +22,45 @@ public class BinarySearchTree {
 
 
     public static TreeNode max(TreeNode root) {
-        TreeNode start = new TreeNode();
-        start.right = root;
-        TreeNode it = start;
+        if (root == null)
+            return null;
+
+        TreeNode it = root;
         while (it.right != null) {
             it = it.right;
         }
-        return it != start ? it : null;
+        return it;
     }
 
     public static TreeNode min(TreeNode root) {
-        TreeNode start = new TreeNode();
-        start.left = root;
-        TreeNode it = start;
+        if (root == null)
+            return null;
+        TreeNode it = root;
         while (it.left != null) {
             it = it.left;
         }
-        return it != start ? it : null;
+        return it;
     }
 
 
     public static TreeNode find(TreeNode root, int val) {
-        TreeNode start = new TreeNode(Integer.MAX_VALUE);
-        start.left = root;
-        TreeNode it = start;
+        TreeNode it = root;
         while (it != null) {
             if (val == it.val)
-                return it;
+                break;
             else if (val < it.val) {
                 it = it.left;
             } else {
                 it = it.right;
             }
         }
-        return null;
+        return it;
     }
 
     public static TreeNode ceil(TreeNode root, int val) {
-        TreeNode start = new TreeNode(Integer.MAX_VALUE);
-        TreeNode ceil = start;
-        start.left = root;
-        TreeNode it = start;
+        TreeNode it = root;
+        TreeNode ceil = new TreeNode(Integer.MAX_VALUE);
+        ceil.left = root;
         while (it != null) {
             if (val == it.val)
                 return it;
@@ -76,10 +76,10 @@ public class BinarySearchTree {
 
 
     public static TreeNode floor(TreeNode root, int val) {
-        TreeNode start = new TreeNode(Integer.MIN_VALUE);
-        TreeNode floor = start;
-        start.right = root;
-        TreeNode it = start;
+        TreeNode it = root;
+        TreeNode floor = new TreeNode(Integer.MIN_VALUE);
+        floor.right = root;
+
         while (it != null) {
             if (val == it.val)
                 return it;
@@ -110,6 +110,35 @@ public class BinarySearchTree {
         sum[0] += root.val;
         root.val = sum[0] - root.val;
         replaceBySumOfLarger(root.left, sum);
+    }
+
+    public static void collectInRange(TreeNode root, int low, int high, List<Integer> ds) {
+        if (root == null) {
+            return;
+        }
+        if (root.val < low) {
+            collectInRange(root.right, low, high, ds);
+        } else if (root.val > high) {
+            collectInRange(root.left, low, high, ds);
+        } else {
+            collectInRange(root.left, low, high, ds);
+            ds.add(root.val);
+            collectInRange(root.right, low, high, ds);
+        }
+    }
+
+
+    public static TreeNode bstLca(TreeNode root, int val1, int val2) {
+        if (root == null)
+            return null;
+
+        if (val1 < root.val && val2 < root.val) {
+            return bstLca(root.left, val1, val2);
+        } else if (val1 > root.val && val2 > root.val) {
+            return bstLca(root.right, val1, val2);
+        } else {
+            return root;
+        }
     }
 
 

@@ -14,14 +14,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BinarySearchTreeTests {
     private int[] rootSequence = new int[]{12, 25, 37, 50, 62, 75, 87};
     private int[] secondRootSequence = new int[]{10, 20, 30, 50, 60, 70, 80};
+    private int[] thirdRootSequence = new int[]{12, 25, 30, 37, 40, 50, 60, 62, 70, 75, 87};
     private TreeNode root;
     private TreeNode secondRoot;
+    private TreeNode thirdRoot;
     private List<Integer> ds = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
         root = createBst(rootSequence);
         secondRoot = createBst(secondRootSequence);
+        thirdRoot = createBst(thirdRootSequence);
     }
 
     @Test
@@ -87,7 +90,7 @@ public class BinarySearchTreeTests {
     }
 
     @Test
-    public void testReplaceWithSumOfMinimum() {
+    public void testReplaceWithSumOfSmaller() {
         assertThat(secondRoot).isNotNull();
         replaceBySumOfSmaller(secondRoot, new int[]{0});
         inorder(secondRoot, ds);
@@ -102,6 +105,14 @@ public class BinarySearchTreeTests {
         inorder(secondRoot, ds);
         Collections.reverse(ds);
         assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 80, 150, 210, 260, 290, 310);
+    }
+
+
+    @Test
+    public void testCollectInRange() {
+        assertThat(thirdRoot).isNotNull();
+        collectInRange(thirdRoot, 35, 65, ds);
+        assertThat(ds).isNotNull().isNotEmpty().containsExactly(37, 40, 50, 60, 62);
     }
 
 
