@@ -98,9 +98,8 @@ public class BinarySearchTree {
         if (root == null)
             return;
         replaceBySumOfSmaller(root.left, sum);
-        int temp = sum[0];
         sum[0] += root.val;
-        root.val = temp;
+        root.val = sum[0] - root.val;
         replaceBySumOfSmaller(root.right, sum);
     }
 
@@ -108,9 +107,8 @@ public class BinarySearchTree {
         if (root == null)
             return;
         replaceBySumOfLarger(root.right, sum);
-        int temp = sum[0];
         sum[0] += root.val;
-        root.val = temp;
+        root.val = sum[0] - root.val;
         replaceBySumOfLarger(root.left, sum);
     }
 
