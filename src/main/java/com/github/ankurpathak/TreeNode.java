@@ -2,10 +2,13 @@ package com.github.ankurpathak;
 
 public class TreeNode {
     TreeNode left, right;
-   Integer data;
+    Integer val;
 
-    TreeNode(Integer data){
-        this.data = data;
+    TreeNode() {
+    }
+
+    TreeNode(Integer data) {
+        this.val = data;
     }
 }
 

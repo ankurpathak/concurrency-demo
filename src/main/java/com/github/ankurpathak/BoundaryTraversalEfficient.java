@@ -14,7 +14,7 @@ public class BoundaryTraversalEfficient {
         if(root == null)
             return Collections.emptyList();
         List<Integer> ds = new ArrayList<>();
-        if(!isLeaf(root)) ds.add(root.data);
+        if (!isLeaf(root)) ds.add(root.val);
         addLeftBoundary(root, ds);
         addLeafNodes(root, ds, true);
         int sizeBeforeRightBoundary = ds.size();
@@ -27,7 +27,7 @@ public class BoundaryTraversalEfficient {
         if(root == null)
             return Collections.emptyList();
         List<Integer> ds = new ArrayList<>();
-        if(!isLeaf(root)) ds.add(root.data);
+        if (!isLeaf(root)) ds.add(root.val);
         addRightBoundary(root, ds);
         addLeafNodes(root, ds, false);
         int sizeBeforeLeftBoundary = ds.size();
@@ -45,14 +45,14 @@ public class BoundaryTraversalEfficient {
     private static  void addRightBoundary(TreeNode root, List<Integer> ds) {
         TreeNode it = root.right;
         while (it != null){
-            if(!isLeaf(it)) ds.add(it.data);
+            if (!isLeaf(it)) ds.add(it.val);
             it = it.right != null ? it.right : it.left;
         }
     }
 
     private static  void addLeafNodes(TreeNode root, List<Integer> ds, boolean anticlockwise) {
         if(isLeaf(root)) {
-            ds.add(root.data);
+            ds.add(root.val);
             return;
         }
         TreeNode first = anticlockwise ? root.left : root.right;
@@ -66,7 +66,7 @@ public class BoundaryTraversalEfficient {
     private static  void addLeftBoundary(TreeNode root, List<Integer> ds) {
         TreeNode it = root.left;
         while (it != null){
-            if(!isLeaf(it)) ds.add(it.data);
+            if (!isLeaf(it)) ds.add(it.val);
             it = it.left != null ? it.left : it.right;
         }
     }

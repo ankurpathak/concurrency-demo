@@ -56,14 +56,14 @@ public class TreeDemo {
         if(root == null)
             return;
         inorder(root.left, ds);
-        ds.add(root.data);
+        ds.add(root.val);
         inorder(root.right, ds);
     }
 
     public static  void preorder(TreeNode root, List<Integer> ds){
         if(root == null)
             return;
-        ds.add(root.data);
+        ds.add(root.val);
         preorder(root.left, ds);
         preorder(root.right, ds);
     }
@@ -73,7 +73,7 @@ public class TreeDemo {
             return;
         postorder(root.left, ds);
         postorder(root.right, ds);
-        ds.add(root.data);
+        ds.add(root.val);
     }
 
 
@@ -95,7 +95,7 @@ public class TreeDemo {
                     if(node.right != null){
                         queue.offerLast(node.right);
                     }
-                    level.add(node.data);
+                    level.add(node.val);
                 }
             }
             ds.add(level);
@@ -117,7 +117,7 @@ public class TreeDemo {
             if(node.left != null){
                 stack.offerFirst(node.left);
             }
-            ds.add(node.data);
+            ds.add(node.val);
         }
         return ds;
     }
@@ -135,7 +135,7 @@ public class TreeDemo {
             }else {
                 if(stack.isEmpty()) break;
                 node = stack.pollFirst();
-                ds.add(node.data);
+                ds.add(node.val);
                 node = node.right;
             }
         }
@@ -151,7 +151,7 @@ public class TreeDemo {
         stack.offerFirst(root);
         while(!stack.isEmpty()){
             TreeNode node = stack.pollFirst();
-            stackDs.offerFirst(node.data);
+            stackDs.offerFirst(node.val);
             if(node.left != null){
                 stack.offerFirst(node.left);
             }
@@ -161,15 +161,6 @@ public class TreeDemo {
         }
         return stackDs;
     }
-
-    public static   void reverseCollection(List<Integer> list){
-        for(int i = 0; i < (list.size() >> 1); i++){
-           Integer temp = list.get(i);
-            list.set(i, list.get(list.size() - i - 1));
-            list.set(list.size()-i -1, temp);
-        }
-    }
-
 
     public static  List<Integer> postorderIterative1Stack(TreeNode root){
         if(root == null)
@@ -187,10 +178,10 @@ public class TreeDemo {
                     node = temp;
                 }else {
                     temp = stack.pollFirst();
-                    ds.add(temp.data);
+                    ds.add(temp.val);
                     while(!stack.isEmpty() && temp == stack.peekFirst().right){
                         temp = stack.pollFirst();
-                        ds.add(temp.data);
+                        ds.add(temp.val);
                     }
                 }
             }
@@ -211,21 +202,21 @@ public class TreeDemo {
         while (!stack.isEmpty()){
             var pair = stack.pollFirst();
             if(pair.val == 1){
-                preorder.add(pair.t.data);
+                preorder.add(pair.t.val);
                 pair.val++;
                 stack.offerFirst(pair);
                 if(pair.t.left != null){
                     stack.offerFirst(new Pair(pair.t.left, 1));
                 }
             }else if(pair.val == 2){
-                inorder.add(pair.t.data);
+                inorder.add(pair.t.val);
                 pair.val++;
                 stack.offerFirst(pair);
                 if(pair.t.right != null){
                     stack.offerFirst(new Pair(pair.t.right, 1));
                 }
             }else if(pair.val == 3){
-                postorder.add(pair.t.data);
+                postorder.add(pair.t.val);
             }
         }
 
@@ -282,8 +273,8 @@ public class TreeDemo {
         if(root1 == null || root2 == null)
             return root1 == root2;
 
-        if(!Objects.equals(root1.data, root2.data))
-            return false;
+       if (!Objects.equals(root1.val, root2.val))
+           return false;
 
         return identicalTree(root1.left, root2.left) && identicalTree(root2.right, root2.right);
    }
@@ -317,7 +308,7 @@ public class TreeDemo {
                             queue.offerFirst(node.left);
                         }
                     }
-                    level.add(node.data);
+                    level.add(node.val);
                 }
             }
             ds.add(level);
@@ -342,7 +333,7 @@ public class TreeDemo {
                 TreeNode node =  queue.pollFirst();
                 if(node != null){
                     int index = lefToRight ? i : levelSize - i -1;
-                    level[index] = node.data;
+                    level[index] = node.val;
                     if(node.left != null)
                         queue.offerLast(node.left);
                     if(node.right != null)
@@ -364,10 +355,10 @@ public class TreeDemo {
         while(it != null){
             if(isLeaf(it)){
                 if(withLeaf){
-                    ds.add(it.data);
+                    ds.add(it.val);
                 }
             }else {
-                ds.add(it.data);
+                ds.add(it.val);
             }
             it = it.left != null ? it.left : it.right;
         }
@@ -382,10 +373,10 @@ public class TreeDemo {
         while(it != null){
             if(isLeaf(it)){
                 if(withLeaf){
-                    ds.add(it.data);
+                    ds.add(it.val);
                 }
             }else {
-                ds.add(it.data);
+                ds.add(it.val);
             }
             it = it.right != null ? it.right : it.left;
         }
@@ -398,7 +389,7 @@ public class TreeDemo {
             return;
         inorderLeafOnly(root.left, ds);
         if(isLeaf(root)){
-            ds.add(root.data);
+            ds.add(root.val);
         }
         inorderLeafOnly(root.right, ds);
     }
@@ -412,7 +403,7 @@ public class TreeDemo {
             return Collections.emptyList();
         List<Integer> ds = new ArrayList<>();
         if(!isLeaf(root))
-            ds.add(root.data);
+            ds.add(root.val);
         List<Integer> leftBoundary = leftBoundaryOfTree(root.left, false);
         List<Integer> leafs = new ArrayList<>();
         inorderLeafOnly(root, leafs);
@@ -430,31 +421,41 @@ public class TreeDemo {
             return Collections.emptyList();
         List<Integer> ds = new ArrayList<>();
         if(!isLeaf(root))
-            ds.add(root.data);
+            ds.add(root.val);
         List<Integer> rightBoundary = rightBoundaryOfTree(root.right, false);
         List<Integer> leafs = new ArrayList<>();
         inorderLeafOnly(root, leafs);
         List<Integer> leftBoundary = leftBoundaryOfTree(root.left, false);
         ds.addAll(rightBoundary);
-        for(int i = 0; i < leafs.size(); i++){
-            ds.add(leafs.get(leafs.size() -i -1));
+        for (int i = 0; i < leafs.size(); i++) {
+            ds.add(leafs.get(leafs.size() - i - 1));
         }
-        for(int i = 0; i < leftBoundary.size(); i++){
-            ds.add(leftBoundary.get(leftBoundary.size() -i -1));
+        for (int i = 0; i < leftBoundary.size(); i++) {
+            ds.add(leftBoundary.get(leftBoundary.size() - i - 1));
         }
         return ds;
     }
 
 
-    public static  List<List<Integer>> verticalLevelTraversal(TreeNode root){
-        if(root == null)
+    public static int size(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int size = 1;
+        size = size + size(root.left) + size(root.right);
+        return size;
+    }
+
+
+    public static List<List<Integer>> verticalLevelTraversal(TreeNode root) {
+        if (root == null)
             return Collections.emptyList();
 
         Map<Integer, Map<Integer, Collection<Integer>>> verticalLevelMap = new TreeMap<>();
         var queue = new LinkedList<Triplet>();
         queue.offerLast(new Triplet(root, 0, 0));
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             var triplet =  queue.pollFirst();
 
             var horizontalLevelMap = verticalLevelMap.putIfAbsent(triplet.val2, new TreeMap<>());
@@ -462,7 +463,7 @@ public class TreeDemo {
             var intersectionBag = horizontalLevelMap.computeIfAbsent(triplet.val1, it -> new PriorityQueue<>());
 
 
-            intersectionBag.add(triplet.t.data);
+            intersectionBag.add(triplet.t.val);
 
             if(triplet.t.left != null){
                 queue.offerLast(new Triplet(triplet.t.left, triplet.val1 + 1, triplet.val2 - 1));
@@ -493,7 +494,7 @@ public class TreeDemo {
         queue.offerLast(new Pair(root, 0));
         while (!queue.isEmpty()){
             Pair pair = queue.pollFirst();
-            topView.putIfAbsent(pair.val, pair.t.data);
+            topView.putIfAbsent(pair.val, pair.t.val);
             if(pair.t.left != null){
                 queue.offerLast(new Pair(pair.t.left, pair.val -1));
             }
@@ -514,7 +515,7 @@ public class TreeDemo {
         queue.offerLast(new Pair(root, 0));
         while (!queue.isEmpty()){
             Pair pair = queue.pollFirst();
-            bottomView.put(pair.val, pair.t.data);
+            bottomView.put(pair.val, pair.t.val);
             if(pair.t.left != null){
                 queue.offerLast(new Pair(pair.t.left, pair.val -1));
             }
@@ -540,7 +541,7 @@ public class TreeDemo {
             return;
         }
         if(level == ds.size()){
-            ds.add(root.data);
+            ds.add(root.val);
         }
         addRightView(root.right, level + 1, ds);
         addRightView(root.left, level + 1, ds);
@@ -559,7 +560,7 @@ public class TreeDemo {
             return;
         }
         if(ds.size() == level)
-            ds.add(root.data);
+            ds.add(root.val);
 
         addLeftView(root.left, level + 1, ds);
         addLeftView(root.right, level + 1, ds);
