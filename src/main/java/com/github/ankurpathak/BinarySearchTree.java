@@ -103,6 +103,27 @@ public class BinarySearchTree {
         replaceBySumOfSmaller(root.right, sum);
     }
 
+
+    public static int replaceBySumOfSmaller1(TreeNode root, int sum) {
+        if (root == null)
+            return sum;
+        sum = replaceBySumOfSmaller1(root.left, sum);
+        sum += root.val;
+        root.val = sum - root.val;
+        sum = replaceBySumOfSmaller1(root.right, sum);
+        return sum;
+    }
+
+    public static int replaceBySumOfLarger1(TreeNode root, int sum) {
+        if (root == null)
+            return sum;
+        sum = replaceBySumOfLarger1(root.right, sum);
+        sum += root.val;
+        root.val = sum - root.val;
+        sum = replaceBySumOfLarger1(root.left, sum);
+        return sum;
+    }
+
     public static void replaceBySumOfLarger(TreeNode root, int[] sum) {
         if (root == null)
             return;
@@ -139,6 +160,19 @@ public class BinarySearchTree {
         } else {
             return root;
         }
+    }
+
+    public static TreeNode insertRecursive(TreeNode root, int val) {
+        if (root == null) {
+            return new TreeNode(val);
+        }
+
+        if (root.val > val) {
+            root.left = insertRecursive(root.left, val);
+        } else {
+            root.right = insertRecursive(root.right, val);
+        }
+        return root;
     }
 
 

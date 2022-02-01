@@ -97,11 +97,29 @@ public class BinarySearchTreeTests {
         assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 10, 30, 60, 110, 170, 240);
     }
 
+    @Test
+    public void testReplaceWithSumOfSmaller1() {
+        assertThat(secondRoot).isNotNull();
+        replaceBySumOfSmaller1(secondRoot, 0);
+        inorder(secondRoot, ds);
+        assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 10, 30, 60, 110, 170, 240);
+    }
+
 
     @Test
     public void testReplaceWithSumOfLarger() {
         assertThat(secondRoot).isNotNull();
         replaceBySumOfLarger(secondRoot, new int[]{0});
+        inorder(secondRoot, ds);
+        Collections.reverse(ds);
+        assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 80, 150, 210, 260, 290, 310);
+    }
+
+
+    @Test
+    public void testReplaceWithSumOfLarger1() {
+        assertThat(secondRoot).isNotNull();
+        replaceBySumOfLarger1(secondRoot, 0);
         inorder(secondRoot, ds);
         Collections.reverse(ds);
         assertThat(ds).isNotNull().isNotEmpty().containsExactly(0, 80, 150, 210, 260, 290, 310);
