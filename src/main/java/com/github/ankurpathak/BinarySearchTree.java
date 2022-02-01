@@ -186,11 +186,11 @@ public class BinarySearchTree {
 
 
     public static int kthSmallest(TreeNode root, int count, int k, int[] val) {
-        if (root == null || count >= k) {
+        if (root == null) {
             return count;
         }
 
-        if ((count = kthSmallest(root.left, count, k, val)) >= k) return count;
+        if ((count = kthSmallest(root.left, count, k, val)) == k) return count;
         count++;
 
         if (count == k) {
