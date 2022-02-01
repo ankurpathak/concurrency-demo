@@ -2,7 +2,16 @@ package com.github.ankurpathak;
 
 import java.util.List;
 
+import static com.github.ankurpathak.TreeDemo.create;
+
 public class BinarySearchTree {
+
+    public static void main(String[] args) {
+        //TreeNode root = create(new Integer[]{5, 3, 6, 2, 4, null, null, 1});
+        TreeNode root = create(new Integer[]{3, 1, 4, null, 2});
+        int[] collector = new int[1];
+        System.out.println(kthSmallest(root, 0, 1, collector));
+    }
 
 
     public static TreeNode createBst(int a[]) {
@@ -173,6 +182,25 @@ public class BinarySearchTree {
             root.right = insertRecursive(root.right, val);
         }
         return root;
+    }
+
+
+    public static int kthSmallest(TreeNode root, int count, int k, int[] val) {
+        if (root == null || count >= k) {
+            return count;
+        }
+
+        if ((count = kthSmallest(root.left, count, k, val)) >= k) return count;
+        count++;
+
+        if (count == k) {
+            val[0] = root.val;
+            return count;
+        }
+
+        count = kthSmallest(root.right, count, k, val);
+        return count;
+
     }
 
 

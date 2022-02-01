@@ -33,19 +33,26 @@ public class TreeDemo {
             pair = queue.pollFirst();
             int lChildIndex = 2 * pair.val + 1;
             int rChildIndex = 2 * pair.val + 2;
-           Integer lChild = a[lChildIndex];
-           Integer rChild = a[rChildIndex];
-            if(lChild != null){
-                pair.t.left = new TreeNode(lChild);
-                queue.offerLast(new Pair(pair.t.left, lChildIndex));
+
+
+            if (lChildIndex < a.length) {
+                Integer lChild = a[lChildIndex];
+                if (lChild != null) {
+                    pair.t.left = new TreeNode(lChild);
+                    queue.offerLast(new Pair(pair.t.left, lChildIndex));
+                }
             }
 
-            if(rChild != null){
-                pair.t.right = new TreeNode(rChild);
-                queue.offerLast(new Pair(pair.t.right, rChildIndex));
+            if (rChildIndex < a.length) {
+                Integer rChild = a[rChildIndex];
+                if (rChild != null) {
+                    pair.t.right = new TreeNode(rChild);
+                    queue.offerLast(new Pair(pair.t.right, rChildIndex));
+                }
             }
+
             i = rChildIndex;
-            if(i >= a.length - 1){
+            if (i >= a.length - 1) {
                 queue.clear();
             }
         }

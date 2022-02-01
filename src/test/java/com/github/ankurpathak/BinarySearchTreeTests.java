@@ -134,4 +134,13 @@ public class BinarySearchTreeTests {
     }
 
 
+    @Test
+    public void testKthSmallest() {
+        assertThat(root).isNotNull();
+        int[] val = new int[1];
+        assertThat(kthSmallest(root, 0, 4, val)).isEqualTo(4);
+        assertThat(val[0]).isEqualTo(50);
+    }
+
+
 }
