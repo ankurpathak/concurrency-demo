@@ -65,7 +65,7 @@ public class HeapDemo {
         for (int it : a) {
             list.add(it);
         }
-
+        //n/2 -1
         for (int i = (list.size() >> 1) - 1; i >= 0; i--) {
             downheapify(list, i);
         }
