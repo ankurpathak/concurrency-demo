@@ -16,6 +16,8 @@ public class GraphCycleTests {
     private List<List<Integer>> firstNonCycleGraph;
     private List<List<Integer>> firstDirectedNonCycleGraph;
     private List<List<Integer>> firstNonBipartiteGraph;
+    private List<List<Integer>> firstBfsEvenCycleGraph;
+    private List<List<Integer>> firstBfsOddCycleGraph;
 
 
     @BeforeEach
@@ -82,6 +84,25 @@ public class GraphCycleTests {
         );
 
 
+        firstBfsEvenCycleGraph = List.of(
+                Collections.emptyList(), //0
+                List.of(2, 4), //1
+                List.of(1, 3), //2
+                List.of(2, 4), //3
+                List.of(1, 3) //4
+        );
+
+
+        firstBfsOddCycleGraph = List.of(
+                Collections.emptyList(), //0
+                List.of(2, 5), //1
+                List.of(1, 3), //2
+                List.of(2, 4), //3
+                List.of(3, 5), //4
+                List.of(1, 4) //5
+        );
+
+
     }
 
     @Test
@@ -116,5 +137,25 @@ public class GraphCycleTests {
     public void testNonBipartiteGraph() {
         assertThat(firstNonBipartiteGraph).isNotNull().isNotEmpty();
         assertThat(notBipartiteChecker(firstNonBipartiteGraph)).isTrue();
+    }
+
+
+    @Test
+    public void testEvenCycleBfs() {
+        assertThat(firstBfsEvenCycleGraph).isNotNull().isNotEmpty();
+        assertThat(bfsEvenCycleChecker(firstBfsEvenCycleGraph)).isTrue();
+
+        assertThat(firstBfsOddCycleGraph).isNotNull().isNotEmpty();
+        assertThat(bfsEvenCycleChecker(firstBfsOddCycleGraph)).isFalse();
+    }
+
+
+    @Test
+    public void testOddCycleBfs() {
+        assertThat(firstBfsOddCycleGraph).isNotNull().isNotEmpty();
+        assertThat(bfsOddCycleChecker(firstBfsOddCycleGraph)).isTrue();
+
+        assertThat(firstBfsEvenCycleGraph).isNotNull().isNotEmpty();
+        assertThat(bfsOddCycleChecker(firstBfsEvenCycleGraph)).isFalse();
     }
 }

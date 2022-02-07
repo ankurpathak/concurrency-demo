@@ -49,16 +49,16 @@ public class GraphCycle {
         boolean[] visited = new boolean[graph.size()];
         for (int i = 1; i < graph.size(); i++) {
             if (!visited[i]) {
-                return bfsCycle(graph, i, visited, -1);
+                return bfsCycle(graph, i, visited);
             }
         }
         return false;
     }
 
-    private static boolean bfsCycle(List<List<Integer>> graph, int node, boolean[] visited, int parent) {
+    private static boolean bfsCycle(List<List<Integer>> graph, int node, boolean[] visited) {
         Deque<Pair> queue = new ArrayDeque<>();
         visited[node] = true;
-        queue.offerLast(new Pair(node, parent));
+        queue.offerLast(new Pair(node, -1));
 
         while (!queue.isEmpty()) {
             Pair curr = queue.pollFirst();
@@ -91,17 +91,15 @@ public class GraphCycle {
         return false;
     }
 
-    private static class Pair {
-        int node;
-        int parent;
-
-        Pair() {
+    public static boolean bfsOddCycleChecker(List<List<Integer>> graph) {
+        int[] visited = new int[graph.size()];
+        Arrays.fill(visited, -1);
+        for (int i = 1; i < graph.size(); i++) {
+            if (visited[i] == -1) {
+                if (bfsOddCycle(graph, visited, i)) return true;
+            }
         }
-
-        Pair(int node, int parent) {
-            this.node = node;
-            this.parent = parent;
-        }
+        return false;
     }
 
 
@@ -127,5 +125,96 @@ public class GraphCycle {
             }
         }
         return false;
+    }
+
+    private static boolean bfsOddCycle(List<List<Integer>> graph, int[] visited, int node) {
+        Deque<Pair> queue = new ArrayDeque<>();
+
+        Pair startPair = new Pair(node, -1);
+        startPair.label = 0;
+        queue.offerLast(startPair);
+        while (!queue.isEmpty()) {
+            Pair curr = queue.pollFirst();
+
+            if (visited[curr.node] != -1) {
+
+                if (visited[curr.node] != curr.label) {
+                    return true;
+                }
+                continue;
+            }
+
+            visited[curr.node] = curr.label;
+
+            for (Integer it : graph.get(curr.node)) {
+                if (visited[it] == -1) {
+                    Pair itPair = new Pair(it, node);
+                    itPair.label = curr.label + 1;
+                    queue.offerLast(itPair);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean bfsEvenCycle(List<List<Integer>> graph, int[] visited, int node) {
+        Deque<Pair> queue = new ArrayDeque<>();
+        Pair startPair = new Pair(node, -1);
+        startPair.label = 0;
+        queue.offerLast(startPair);
+        while (!queue.isEmpty()) {
+            Pair curr = queue.pollFirst();
+
+            if (visited[curr.node] != -1) {
+                //reverse condition for odd cycle
+                if (visited[curr.node] == curr.label) {
+                    return true;
+                }
+                continue;
+            }
+            //parent is used to store label
+            visited[curr.node] = curr.label;
+
+            for (Integer it : graph.get(curr.node)) {
+                if (visited[it] == -1) {
+                    Pair itPair = new Pair(it, node);
+                    itPair.label = curr.label + 1;
+                    queue.offerLast(itPair);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean bfsEvenCycleChecker(List<List<Integer>> graph) {
+        int[] visited = new int[graph.size()];
+        Arrays.fill(visited, -1);
+        for (int i = 1; i < graph.size(); i++) {
+            if (visited[i] == -1) {
+                if (bfsEvenCycle(graph, visited, i)) return true;
+            }
+        }
+        return false;
+    }
+
+    private static class Pair {
+        int node;
+        int parent;
+        int label;
+
+        Pair() {
+        }
+
+        Pair(int node, int parent) {
+            this.node = node;
+            this.parent = parent;
+        }
+
+        Pair(int node) {
+            this.node = node;
+
+        }
     }
 }
