@@ -131,11 +131,6 @@ public class LinkedListDemoX {
 
 
     public static  ListNode remove(ListNode head, int index){
-        if(index < 0)
-            return head;
-
-        if(head == null)
-            return null;
 
         ListNode start = new ListNode();
         start.next = head;

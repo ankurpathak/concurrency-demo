@@ -91,16 +91,7 @@ public class GraphCycle {
         return false;
     }
 
-    public static boolean bfsOddCycleChecker(List<List<Integer>> graph) {
-        int[] visited = new int[graph.size()];
-        Arrays.fill(visited, -1);
-        for (int i = 1; i < graph.size(); i++) {
-            if (visited[i] == -1) {
-                if (bfsOddCycle(graph, visited, i)) return true;
-            }
-        }
-        return false;
-    }
+
 
 
     public static boolean notBipartiteChecker(List<List<Integer>> graph) {
@@ -194,6 +185,17 @@ public class GraphCycle {
         for (int i = 1; i < graph.size(); i++) {
             if (visited[i] == -1) {
                 if (bfsEvenCycle(graph, visited, i)) return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean bfsOddCycleChecker(List<List<Integer>> graph) {
+        int[] visited = new int[graph.size()];
+        Arrays.fill(visited, -1);
+        for (int i = 1; i < graph.size(); i++) {
+            if (visited[i] == -1) {
+                if (bfsOddCycle(graph, visited, i)) return true;
             }
         }
         return false;
