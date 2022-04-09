@@ -14,9 +14,11 @@ public class Queen1DCombination {
 
         int count = 0;
         for (int k = i; k < boxes; k++) {
-            psf.append('b').append(k).append('q').append(j).append(' ');
+            String kSr = Integer.toString(k);
+            String jStr = Integer.toString(j);
+            psf.append('b').append(kSr).append('q').append(jStr).append(' ');
             count += queenCombination(boxes, queen, k + 1, j + 1, psf);
-            psf.delete(psf.length() - 5, psf.length());
+            psf.delete(psf.length() - 3 - kSr.length() - jStr.length(), psf.length());
         }
         return count;
     }

@@ -3,7 +3,10 @@ package com.github.ankurpathak;
 public class Queen1DCombinationPickNotPick {
 
     public static void main(String[] args) {
-        System.out.println(queenCombination(6, 3, 0, 0, new StringBuilder("")));
+
+        // System.out.println(queenCombination(6, 3, 0, 0, new StringBuilder("")));
+        System.out.println(queenCombination(3, 2, 0, 0, new StringBuilder("")));
+
     }
 
     public static int queenCombination(int boxes, int queen, int i, int j, StringBuilder psf) {
